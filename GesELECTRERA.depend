@@ -1,27 +1,25 @@
 # depslib dependency file v1.0
-1764334593 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
-	<stdio.h>
-	"TADEstacion.h"
-	"TADPunto.h"
-	"TADReserva.h"
-
-1764333727 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadestacion.cpp
-	"TadEstacion.h"
-
-1764333841 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadestacion.h
-
-1764334050 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadpunto.cpp
-	"TADPunto.h"
-
-1764334050 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadpunto.h
-
-1764334088 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadreserva.cpp
-	"TADReserva.h"
-
-1764334050 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadreserva.h
-
 1764339040 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectronilera.cpp
 	"TADElectronilera.h"
 
-1764339237 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectronilera.h
+1764591625 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectronilera.h
+
+1764622604 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
+	<stdio.h>
+	<ctype.h>
+	<stdlib.h>
+	<string.h>
+	<time.h>
+	"TADElectrolinera.h"
+	"Constantes.h"
+
+1764618411 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.h
+
+1764623169 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.cpp
+	<string.h>
+	<stdio.h>
+	"TADElectrolinera.h"
+	"Constantes.h"
+
+1764622114 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\constantes.h
 

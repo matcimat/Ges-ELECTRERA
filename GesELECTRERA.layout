@@ -1,31 +1,16 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Release" />
+	<ActiveTarget name="Debug" />
+	<File name="Constantes.h" open="1" top="0" tabpos="4">
+		<Cursor position="45" topLine="0" />
+	</File>
 	<File name="GesELECTRERA.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="140" topLine="0" />
+		<Cursor position="8658" topLine="196" />
 	</File>
-	<File name="TADElectronilera.cpp" open="1" top="0" tabpos="7">
-		<Cursor position="37" topLine="0" />
+	<File name="TADElectrolinera.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="1061" topLine="0" />
 	</File>
-	<File name="TADElectronilera.h" open="1" top="0" tabpos="6">
-		<Cursor position="330" topLine="0" />
-	</File>
-	<File name="TADEstacion.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="26" topLine="0" />
-	</File>
-	<File name="TADEstacion.h" open="0" top="0" tabpos="0">
-		<Cursor position="12" topLine="0" />
-	</File>
-	<File name="TADPunto.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="23" topLine="0" />
-	</File>
-	<File name="TADPunto.h" open="1" top="0" tabpos="2">
-		<Cursor position="12" topLine="0" />
-	</File>
-	<File name="TADReserva.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="25" topLine="0" />
-	</File>
-	<File name="TADReserva.h" open="1" top="0" tabpos="4">
-		<Cursor position="14" topLine="0" />
+	<File name="TADElectrolinera.h" open="1" top="0" tabpos="2">
+		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
