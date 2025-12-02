@@ -9,7 +9,7 @@ typedef TipoPunto ListaPuntosRecarga[20];
 
 typedef struct TipoElectrolinera{
 
-  bool EnUso;
+  bool ElectEnUso;
   int identificador;
   TipoNombreElectrolinera nombre;
   int NPtosRapidos;
@@ -21,7 +21,7 @@ typedef struct TipoElectrolinera{
   ListaPuntosRecarga PuntosRecarga;
 
 
-  int CrearElectroninera(TipoNombreElectrolinera nombre, int NPuntos_R, int NPuntos_S, int NPuntos_L,
+  void CrearElectroninera(TipoNombreElectrolinera nombre, int NPuntos_R, int NPuntos_S, int NPuntos_L,
                          TipoUbicacionElectrolinera Tipo, float latitud, float longitud);
   void ImprimirElectrolinera(int identificador);
 

@@ -2,7 +2,7 @@
 
 typedef struct TipoPunto{
 
-  bool EnUso;
+  bool PtoEnUso;
   int identificador;
   int id_electrolinera;
   char TipoCorriente;

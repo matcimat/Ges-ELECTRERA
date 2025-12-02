@@ -11,20 +11,12 @@
 /* Parte Declarativa */
 const int MAX_NUMERO_ELECTROLINERAS = 10;
 
-
-/* typedef char TipoNombreElectrolinera[20]; */
-typedef int TipoVector[MAX_NUMERO_ELECTROLINERAS];
-
-/* En este vector controleremoa las Electrolineras que ya están creadas y cuales libres */
-TipoVector VectorElectrolineras;
-
-
 typedef TipoElectrolinera TipoListaElectrolineras[MAX_NUMERO_ELECTROLINERAS];
 TipoListaElectrolineras electrolineras;
 
 /* Codigos ASCII  á=160 , é=130 , í=161 , ó=162 , ú=163 , ñ=164  ¿=168 , ¡=173 */
 
-bool modo_debug = true;
+bool modo_debug = false;
 bool seguir_ejecutando;
 int resultado;
 
@@ -79,7 +71,7 @@ void editar_electrolinera(){
   fflush(stdin);
 
   /* Vamos a comprobar si la electrolinera está libre o la reemplazamos */
-  if(VectorElectrolineras[identificador]==1){
+  if(electrolineras[identificador].ElectEnUso==true){
     printf("IMPORTANTE: La Electrolinera %d ya existe y va reemplazar los datos anteriores.\n",identificador);
   }
   printf("%cDesea continurar (S/N)? ",168);
@@ -92,17 +84,14 @@ void editar_electrolinera(){
   /* Preguntamos si los datos son correctos */
   if (DatosCorrectos == 'S') {
     /* Son correctos: se guardan los datos con el subprograma guardar_datos_edificio(...); */
-    /* guardar_datos_edificio(IdentificadorEdificio, NombreEdificio, NumeroBasicos, NumeroNormales, NumeroLujo); */
-    resultado = electrolineras[identificador].CrearElectroninera(nombre,npuntos_r,npuntos_s,npuntos_l,tipo,latitud,longitud);
-    if(resultado==0){
-      /* La creación se ha hecho correctamente , la marcamos en el Vector de control */
-      VectorElectrolineras[identificador]=1;
-    }else{
-      /* Se ha producido un error en la creación */
-      printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera.\n");
+    /* Lo metemos en un try catch para capturar si ha fallado la creación y poder realizar las acciones oportunas */
+    try {
+        electrolineras[identificador].CrearElectroninera(nombre,npuntos_r,npuntos_s,npuntos_l,tipo,latitud,longitud);
+        printf("Electrolinera creada correctamente.\n");
+    }catch (int error){
+       printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera. C&codigo Error: %2d\n",162,error);
+       return;
     }
-    /* Y ahora volvemos al menu principal */
-    return;
   }
 
   else if (DatosCorrectos == 'N') {
@@ -324,35 +313,19 @@ void IniciarValores(){
 
   /* Pondremos a 0 todo el vector de control de las electrolineras */
   for(int i=0;i<=MAX_NUMERO_ELECTROLINERAS;i++){
-    VectorElectrolineras[i]=0;
+    electrolineras[i].ElectEnUso=false;
     if(modo_debug==true) {
-      printf("\n DEBUG : Inicializando VectorElectrolinera[%d)\n",i);
+      printf("\n DEBUG : Inicializando ElecEnUso a false en Electrolinera:%2d.\n",i);
     }
   }
 
 
-  resultado=electrolineras[1].CrearElectroninera("Electro-1",8,6,6,Urbana,11.11,21.21);
-  if(resultado==0){
-    VectorElectrolineras[1]=1;
-  }
-  resultado=electrolineras[2].CrearElectroninera("Electro-2",20,0,0,Mixta,22.22,32.32);
-  if(resultado==0){
-    VectorElectrolineras[2]=1;
-  }
-  resultado=electrolineras[3].CrearElectroninera("Electro-3",0,20,0,Ruta,33.33,43.43);
-  if(resultado==0){
-    VectorElectrolineras[3]=1;
-  }
-  resultado=electrolineras[4].CrearElectroninera("Electro-4",0,0,20,Urbana,44.44,55.55);
-  if(resultado==0){
-    VectorElectrolineras[4]=1;
-  }
-  /* Esta Electrolinera no se va a crear porque excede el numero de puntos de recarga */
-  resultado=electrolineras[5].CrearElectroninera("Electro-5",20,0,20,Urbana,44.44,55.55);
-  electrolineras[7].PuntosRecarga[0].nivel=1;
-  if(resultado==0){
-    VectorElectrolineras[4]=1;
-  }
+  electrolineras[1].CrearElectroninera("Electro-1",8,6,6,Urbana,11.11,21.21);
+  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,Mixta,22.22,32.32);
+  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,Ruta,33.33,43.43);
+  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,Urbana,44.44,55.55);
+
+
 
 
 
@@ -365,11 +338,6 @@ void ListarValores(){
   for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS;i++){
     electrolineras[i].ImprimirElectrolinera(i);
   }
-  printf("\n ** DEBUG : Vector Electrolineras Libres/Ocupadas ** \n");
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS;i++){
-    printf("%2d - ",VectorElectrolineras[i]);
-  }
-
 }
 
 /* Programa principal */
@@ -383,7 +351,9 @@ int main() {
 
   while (seguir_ejecutando) {
 
-    if(modo_debug){ListarValores();}
+    if(modo_debug==true){
+      ListarValores();
+      }
     menu_principal();
   }
 
