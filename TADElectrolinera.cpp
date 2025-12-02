@@ -1,6 +1,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "TADElectrolinera.h"
+#include "TADPunto.h"
 #include "Constantes.h"
 
 const int MAX_PUNTOS_ELECTROLINERA = 20;
@@ -16,12 +17,24 @@ int TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int 
   /* Debemos comprobar la calidad de todos los datos introducidos, que sean numeros enteros, positivos, la ubicación, etc etc */
   /* TODO : Validacion de datos creacion Electrolinera */
 
+
+
+
   /* Tambien comprobamos que el numero de puntos de recarga no exceda el maximo */
+
+  if(p_npuntos_r<0 || p_npuntos_r>MAX_PUNTOS_ELECTROLINERA ||
+     p_npuntos_s<0 || p_npuntos_s>MAX_PUNTOS_ELECTROLINERA ||
+     p_npuntos_l<0 || p_npuntos_l>MAX_PUNTOS_ELECTROLINERA) {
+    datoscorrectos = false;
+    codigoretorno = 1;
+    printf("Falla la creaci%cn de Electrolinera. El N%cmero de puntos de recarga debe estar entre 0 y 20. \n", 162,163);
+  }
+
 
   if(p_npuntos_r+p_npuntos_s+p_npuntos_l > MAX_PUNTOS_ELECTROLINERA){
     datoscorrectos = false;
     codigoretorno = 1;
-    printf("Falla creaci%cn Electrolinera. Excedido n%cmero de puntos de recarga. \n", 162,163);
+    printf("Falla la creaci%cn de Electrolinera. Excedido n%cmero de puntos de recarga. \n", 162,163);
   }
 
 
@@ -40,13 +53,32 @@ int TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int 
   tipo=p_tipo;
   latitud=p_latitud;
   longitud=p_longitud;
+  EnUso=true;
+
+  /* Ahora vamos a crear los puntos de recarga */
+  for(int i=1;i<=20;i++){
+   CrearPuntoRecarga(i,0.0);
+  }
+
   return codigoretorno;  /* Devolvemos 0 para indicar que no ha habido errores */
   }
 
 void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   printf("La Elec=%d ,nombre=%s , tipo=%c , Puntos: %d , %d , %d , latitud=%f , longitud=%f \n",p_identificador,nombre,tipo,
           NPtosRapidos,NPtosSemi,NPtosLentos,latitud,longitud);
+  /* Tambien Imprimios los puntos de Recarga, para ello le pasamos a la función el identificador de la electrolinera y el número del punto de recarga */
+  for(int i=1;i<=20;i++){
+    PuntosRecarga[i].ImprimirPtoRecarga(p_identificador,i);
+  }
 }
 
+int TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia){
+  if(PuntosRecarga[p_id].EnUso==false){
+    PuntosRecarga[p_id].Potencia=p_potencia;
+    PuntosRecarga[p_id].EnUso=true;
+  }else{
+    printf("El punto de recarga %2d ya est%c en uso.\n",p_id,160);
+  }
+}
 
 

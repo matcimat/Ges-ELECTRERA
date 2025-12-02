@@ -12,17 +12,12 @@
 const int MAX_NUMERO_ELECTROLINERAS = 10;
 
 
-typedef char TipoNombre[20];
+/* typedef char TipoNombreElectrolinera[20]; */
 typedef int TipoVector[MAX_NUMERO_ELECTROLINERAS];
 
 /* En este vector controleremoa las Electrolineras que ya están creadas y cuales libres */
 TipoVector VectorElectrolineras;
 
-typedef struct Fecha {
-  int dia;
-  int mes;
-  int anio;
-};
 
 typedef TipoElectrolinera TipoListaElectrolineras[MAX_NUMERO_ELECTROLINERAS];
 TipoListaElectrolineras electrolineras;
@@ -55,7 +50,8 @@ void editar_electrolinera(){
   fflush(stdin);
 
   printf("\t%cNombre (entre 1 y 20 caracteres)?: ",168);
-  scanf("%[^\n]s", &nombre);
+  /*scanf("%[^\n]", &nombre);  Esto se hace para que se puedan meter espacios*/
+  scanf("%20s", &nombre);
   fflush(stdin);
 
   printf("\t%cN%cmero de puntos de carga RAPIDOS?: ",168,163);
@@ -327,7 +323,7 @@ void IniciarValores(){
   }
 
   /* Pondremos a 0 todo el vector de control de las electrolineras */
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS;i++){
+  for(int i=0;i<=MAX_NUMERO_ELECTROLINERAS;i++){
     VectorElectrolineras[i]=0;
     if(modo_debug==true) {
       printf("\n DEBUG : Inicializando VectorElectrolinera[%d)\n",i);
@@ -353,6 +349,7 @@ void IniciarValores(){
   }
   /* Esta Electrolinera no se va a crear porque excede el numero de puntos de recarga */
   resultado=electrolineras[5].CrearElectroninera("Electro-5",20,0,20,Urbana,44.44,55.55);
+  electrolineras[7].PuntosRecarga[0].nivel=1;
   if(resultado==0){
     VectorElectrolineras[4]=1;
   }

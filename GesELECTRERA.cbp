@@ -31,10 +31,17 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="Constantes.cpp" />
 		<Unit filename="Constantes.h" />
 		<Unit filename="GesELECTRERA.cpp" />
 		<Unit filename="TADElectrolinera.cpp" />
 		<Unit filename="TADElectrolinera.h" />
+		<Unit filename="TADPunto.cpp" />
+		<Unit filename="TADPunto.h" />
+		<Unit filename="TADReserva.cpp" />
+		<Unit filename="TADReserva.h" />
+		<Unit filename="TADUtilidades.cpp" />
+		<Unit filename="TADUtilidades.h" />
 		<Extensions>
 			<code_completion />
 			<debugger />
