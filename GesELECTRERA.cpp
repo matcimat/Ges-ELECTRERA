@@ -16,7 +16,7 @@ TipoListaElectrolineras electrolineras;
 
 /* Codigos ASCII  á=160 , é=130 , í=161 , ó=162 , ú=163 , ñ=164  ¿=168 , ¡=173 */
 
-bool modo_debug = false;
+bool modo_debug = true;
 bool seguir_ejecutando;
 int resultado;
 
@@ -43,7 +43,7 @@ void editar_electrolinera(){
 
   printf("\t%cNombre (entre 1 y 20 caracteres)?: ",168);
   /*scanf("%[^\n]", &nombre);  Esto se hace para que se puedan meter espacios*/
-  scanf("%20s", &nombre);
+  scanf("%20s", nombre);
   fflush(stdin);
 
   printf("\t%cN%cmero de puntos de carga RAPIDOS?: ",168,163);
@@ -59,7 +59,7 @@ void editar_electrolinera(){
   fflush(stdin);
 
   printf("\t%cTipo de Estaci%cn (Urbana, Ruta, Mixta)?: ",168,162);
-  scanf("%c", &tipo);
+  scanf("%7s", tipo);
   fflush(stdin);
 
   printf("\t%cLatitud (WGS84)?: ",168);
@@ -89,7 +89,7 @@ void editar_electrolinera(){
         electrolineras[identificador].CrearElectroninera(nombre,npuntos_r,npuntos_s,npuntos_l,tipo,latitud,longitud);
         printf("Electrolinera creada correctamente.\n");
     }catch (int error){
-       printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera. C&codigo Error: %2d\n",162,error);
+       printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera. C%digo Error: %2d\n",162,error);
        return;
     }
   }
@@ -116,7 +116,6 @@ void editar_pto_recarga(){
   char TipoCorriente;
   int Potencia = 0;
   int Rodaja = 0;
-  int Numero_Total_Puntos = 0;
   char DatosCorrectos;
 
   fflush(stdin);
@@ -139,7 +138,7 @@ void editar_pto_recarga(){
   scanf("%d", &Potencia);
   fflush(stdin);
 
-  printf("\t%cRodaja m%nima de recarga (minutos)?: ",168,161);
+  printf("\t%cRodaja m%cnima de recarga (minutos)?: ",168,161);
   scanf("%d", &Rodaja);
   fflush(stdin);
 
@@ -196,7 +195,7 @@ void reservar_pto_recarga(){
   fflush(stdin);
 
   printf("\t%cTipo de Punto de Recarga (Nivel 1/Nivel 2/Nivel 3)?: ",168);
-  scanf("%c", &TipoPto);
+  scanf("%c", TipoPto);
   /* TipoPunto = toupper(TipoPunto); */
 
   fflush(stdin);
@@ -320,10 +319,10 @@ void IniciarValores(){
   }
 
 
-  electrolineras[1].CrearElectroninera("Electro-1",8,6,6,Urbana,11.11,21.21);
-  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,Mixta,22.22,32.32);
-  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,Ruta,33.33,43.43);
-  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,Urbana,44.44,55.55);
+  electrolineras[1].CrearElectroninera("Electro-1",8,6,6,"Urbana",11.11,21.21);
+  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
+  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
+  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
 
 
 

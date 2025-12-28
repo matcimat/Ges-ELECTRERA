@@ -10,3 +10,11 @@ void TipoPunto::ImprimirPtoRecarga(int p_id_electrolinera , int p_id_punto){
   }
 
 }
+
+void TipoPunto::InsertarReserva(TipoTimeStamp inicio , TipoTimeStamp final,int duracion){
+
+  }
+
+void TipoPunto::ListarReservas(TipoTimeStamp inicio , TipoTimeStamp final){
+
+}

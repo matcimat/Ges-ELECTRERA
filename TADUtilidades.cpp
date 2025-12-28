@@ -27,7 +27,7 @@ bool TipoUtilidades::es_hora_valida(int hora, int minuto)
    if (hora < 0 || minuto < 0 || hora > 24 || minuto > 59 ) {
       return false;
   }
-
+  return true;
 
 }
 
@@ -38,4 +38,8 @@ bool TipoUtilidades::es_hora_valida(int hora, int minuto)
 */
 bool TipoUtilidades::es_anio_bisiesto(int anio){
     return ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0));
+
 }
+
+
+

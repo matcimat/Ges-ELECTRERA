@@ -37,7 +37,7 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
   NPtosRapidos=p_npuntos_r;
   NPtosSemi=p_npuntos_s;
   NPtosLentos=p_npuntos_l;
-  tipo=p_tipo;
+  strcpy(tipo,p_tipo);
   latitud=p_latitud;
   longitud=p_longitud;
   ElectEnUso=true;
@@ -52,7 +52,7 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
 
 void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   if(ElectEnUso==true){
-    printf("La Elec=%2d ,nombre=%s , tipo=%c , Puntos: %d , %d , %d , latitud=%f , longitud=%f \n",p_identificador,nombre,tipo,
+    printf("La Elec=%2d ,nombre=%s , tipo=%s , Puntos: %d , %d , %d , latitud=%f , longitud=%f \n",p_identificador,nombre,tipo,
             NPtosRapidos,NPtosSemi,NPtosLentos,latitud,longitud);
     /* Tambien Imprimios los puntos de Recarga, para ello le pasamos a la función el identificador de la electrolinera y el número del punto de recarga */
     for(int i=1;i<=20;i++){
@@ -63,7 +63,7 @@ void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   }
 }
 
-int TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia){
+void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia){
   if(PuntosRecarga[p_id].PtoEnUso==false){
     PuntosRecarga[p_id].Potencia=p_potencia;
     PuntosRecarga[p_id].PtoEnUso=true;

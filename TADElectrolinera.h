@@ -3,7 +3,7 @@
 
 const int MAX_LONGITUD_NOMBRE = 20;
 typedef char TipoNombreElectrolinera[MAX_LONGITUD_NOMBRE+1];
-typedef enum TipoUbicacionElectrolinera {Urbana, Ruta, Mixta};
+typedef char TipoUbicacionElectrolinera[7];  /* La cadena mas larga es Urbana -> 6+1 */
 typedef TipoPunto ListaPuntosRecarga[20];
 
 
@@ -25,7 +25,7 @@ typedef struct TipoElectrolinera{
                          TipoUbicacionElectrolinera Tipo, float latitud, float longitud);
   void ImprimirElectrolinera(int identificador);
 
-  int CrearPuntoRecarga(int p_id, float p_potencia);
+  void CrearPuntoRecarga(int p_id, float p_potencia);
 
 
 
