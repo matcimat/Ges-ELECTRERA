@@ -1,37 +1,43 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Constantes.cpp" open="1" top="0" tabpos="9">
+	<File name="Constantes.cpp" open="0" top="0" tabpos="9">
 		<Cursor position="25" topLine="0" />
 	</File>
-	<File name="Constantes.h" open="1" top="0" tabpos="6">
+	<File name="Constantes.h" open="0" top="0" tabpos="6">
 		<Cursor position="45" topLine="0" />
 	</File>
-	<File name="GesELECTRERA.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1560" topLine="53" />
+	<File name="GesELECTRERA.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="11094" topLine="406" />
 	</File>
-	<File name="TADElectrolinera.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="2387" topLine="57" />
+	<File name="TADCalendario.cpp" open="1" top="0" tabpos="10">
+		<Cursor position="7692" topLine="323" />
 	</File>
-	<File name="TADElectrolinera.h" open="1" top="0" tabpos="2">
-		<Cursor position="842" topLine="16" />
+	<File name="TADCalendario.h" open="1" top="0" tabpos="9">
+		<Cursor position="282" topLine="0" />
 	</File>
-	<File name="TADPunto.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="133" topLine="0" />
+	<File name="TADElectrolinera.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="0" topLine="46" />
 	</File>
-	<File name="TADPunto.h" open="1" top="0" tabpos="4">
-		<Cursor position="55" topLine="0" />
+	<File name="TADElectrolinera.h" open="1" top="0" tabpos="7">
+		<Cursor position="865" topLine="9" />
 	</File>
-	<File name="TADReserva.cpp" open="1" top="0" tabpos="8">
+	<File name="TADPunto.cpp" open="1" top="1" tabpos="6">
+		<Cursor position="2478" topLine="69" />
+	</File>
+	<File name="TADPunto.h" open="1" top="0" tabpos="5">
+		<Cursor position="522" topLine="11" />
+	</File>
+	<File name="TADReserva.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="27" topLine="0" />
 	</File>
-	<File name="TADReserva.h" open="1" top="0" tabpos="7">
-		<Cursor position="0" topLine="0" />
+	<File name="TADReserva.h" open="1" top="0" tabpos="4">
+		<Cursor position="286" topLine="0" />
 	</File>
-	<File name="TADUtilidades.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="643" topLine="20" />
+	<File name="TADUtilidades.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="1204" topLine="1" />
 	</File>
-	<File name="TADUtilidades.h" open="1" top="0" tabpos="11">
-		<Cursor position="358" topLine="0" />
+	<File name="TADUtilidades.h" open="1" top="0" tabpos="3">
+		<Cursor position="216" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

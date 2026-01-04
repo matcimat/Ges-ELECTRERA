@@ -2,44 +2,68 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
+#include <string.h>
 
 
-bool TipoUtilidades::es_fecha_valida(int dia, int mes, int anio) {
-
-    if (anio < 2025 || mes < 1 || mes > 12 || dia < 1) {
-        return false;
-    }
-
-    if (es_anio_bisiesto(anio)) {
-        if (dia > DIAS_EN_MES_BISIESTO[mes - 1]) {
-        return false;
-        }
-    }else if (dia > DIAS_EN_MES[mes - 1]) {
-        return false;
-    }
-
-    return true;
-}
 
 
-bool TipoUtilidades::es_hora_valida(int hora, int minuto)
-{
-   if (hora < 0 || minuto < 0 || hora > 24 || minuto > 59 ) {
-      return false;
+
+
+
+
+
+
+
+
+void TipoUtilidades::RellenaCeros(int numero, TipoRellenaCeros &resultado){
+
+  typedef char TipoResultado[5];
+  TipoResultado temp;
+  strcpy(resultado,"");
+  sprintf(temp,"%d",numero);
+
+  if (numero >= 1000) {
+    /* no hay que hacer nada */
+  } else if (numero >= 100) {
+      strcpy(resultado,"0");
+  } else if (numero >= 10) {
+      strcpy(resultado,"00");
+  } else {
+      strcpy(resultado,"000");
   }
-  return true;
+
+  strcat(resultado,temp);
+
+  /* printf("04d",numero) */
 
 }
 
+void TipoUtilidades::GenerarIdReserva(int nivel , int punto , int numreserva,int mes, int anyo, TipoIdReserva &id_reserva){
+
+  TipoIdReserva tmp_id_reserva="N";
+  char s_nivel;
+  /* sprintf(s_nivel,"%d",nivel);*/
+
+  /* strcat(tmp_id_reserva,s_nivel); */
 
 
-/*
-    Calcula si un año es bisiesto
-*/
-bool TipoUtilidades::es_anio_bisiesto(int anio){
-    return ((anio % 4 == 0 && anio % 100 != 0) || (anio % 400 == 0));
+  strcpy(id_reserva,tmp_id_reserva);
 
 }
 
+bool TipoUtilidades::ValidarReserva(int R_Inicio, int R_Final, int T_Inicio , int T_Final){
 
+  /* R_Inicio y R_Final es el intervalo de la reserva */
+  /* T_Inicio y T_Final es el intervalo del tramo de una reserva existente */
 
+ for(int i=T_Inicio;i<=T_Final;i++){
+  /* Vamos recorriendo los minutos de la reserva */
+  if(i>=R_Inicio && i< R_Final){
+    /* el minuto i que está en una reserva previs, está dentro del intervalo que queremos reservar */
+    /* por lo que no se puede hacer la reserva por no haber hueco completo libre */
+    return false;
+  }
+ }
+
+ return true;
+}

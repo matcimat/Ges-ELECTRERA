@@ -1,20 +1,11 @@
 #pragma once
-
-/* YYYY-MM-DD_HH:MM */
-typedef char TipoTimeStamp[16];
-
-typedef struct TipoReserva{
-
-    int id;
-    TipoTimeStamp TS_Inicio;
-    TipoTimeStamp TS_Final;
-    int duracion;
-    TipoReserva* SiguienteReserva;
+#include "TADReserva.h"
+#include "TADCalendario.h"
 
 
-};
 
-typedef TipoReserva* TipoPunteroReserva;
+typedef TipoReserva ListaReservas[100];
+
 
 typedef struct TipoPunto{
 
@@ -25,12 +16,16 @@ typedef struct TipoPunto{
   float Potencia;
   int rodaja;
   int nivel;
-  TipoPunteroReserva SecuenciaReservas;
+  int UltimaReserva;
+  ListaReservas Reservas;
+
 
 
   void ImprimirPtoRecarga(int id_electrolinera , int id_punto);
-  void InsertarReserva(TipoTimeStamp inicio , TipoTimeStamp final,int duracion);
-  void ListarReservas(TipoTimeStamp inicio , TipoTimeStamp final);
+  int BuscarReserva(TipoFecha inicio , TipoFecha final);
+  void AnadirReserva(TipoFecha inicio , int duracion);
+  int ListarReservas(int mes, int anio);
+  void CalendarioPunto(int mes, int anio);
 
 
 };

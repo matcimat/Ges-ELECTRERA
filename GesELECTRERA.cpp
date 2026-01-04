@@ -5,20 +5,26 @@
 #include <time.h>
 #include "TADElectrolinera.h"
 #include "Constantes.h"
+#include "TADUtilidades.h"
+#include "TADCalendario.h"
 
 
 
 /* Parte Declarativa */
-const int MAX_NUMERO_ELECTROLINERAS = 10;
+const int MAX_NUMERO_ELECTROLINERAS = 11;
 
 typedef TipoElectrolinera TipoListaElectrolineras[MAX_NUMERO_ELECTROLINERAS];
 TipoListaElectrolineras electrolineras;
+typedef int DiasOcupacion[31];
 
 /* Codigos ASCII  á=160 , é=130 , í=161 , ó=162 , ú=163 , ñ=164  ¿=168 , ¡=173 */
 
-bool modo_debug = true;
+bool modo_debug = false;
 bool seguir_ejecutando;
 int resultado;
+TipoUtilidades utilidades;
+TipoFecha Inicio,Final;
+
 
 void editar_electrolinera(){
   int identificador = 0;
@@ -234,9 +240,79 @@ void reservar_pto_recarga(){
 }
 
 void listar_reservas_electrolinera(){
+
+  int Electrolinera = 0;
+  int mes=0;
+  int anio=0;
+
+  printf("Reservas Mensuales Punto de Recarga:\n\n");
+
+  printf("\t%cIdentificador de Electrolinera?: ", 168);
+  scanf("%d", &Electrolinera);
+  fflush(stdin);
+
+  printf("\t%cSelecci%cn: Mes?: ",168,162);
+  scanf("%d", &mes);
+  fflush(stdin);
+  /* FechaEntradaSolicitada.Mes = FechaEntradaMes; */
+
+  printf("\t%cSelecci%cn: A%co?: ",168,162,164);
+  scanf("%d", &anio);
+  fflush(stdin);
+
+  if((Electrolinera<1 || Electrolinera>10) || (mes<1 || mes>12) || (anio<2025 || anio>2030)){
+   printf("\n *** ERROR en los datos introducidos ***\n");
+    }else if(electrolineras[Electrolinera].ElectEnUso==false){
+      printf("\n *** ERROR La Electrolinera elegida no se encuentra definida ***\n");
+      }else{
+        /* Llamamos al método del punto para listar el calendario */
+        electrolineras[Electrolinera].ListarReservas(Electrolinera,mes,anio);
+      }
+
+
 }
 
 void listar_mensual_pto(){
+
+
+  int Electrolinera = 0;
+  int Punto;
+  int mes=0;
+  int anio=0;
+
+  printf("Reservas Mensuales Punto de Recarga:\n\n");
+
+  printf("\t%cIdentificador de Electrolinera?: ", 168);
+  scanf("%d", &Electrolinera);
+  fflush(stdin);
+
+  printf("\t%cPunto de Recarga?: ",168);
+  scanf("%d", &Punto);
+  fflush(stdin);
+
+  printf("\t%cSelecci%cn: Mes?: ",168,162);
+  scanf("%d", &mes);
+  fflush(stdin);
+  /* FechaEntradaSolicitada.Mes = FechaEntradaMes; */
+
+  printf("\t%cSelecci%cn: A%co?: ",168,162,164);
+  scanf("%d", &anio);
+  fflush(stdin);
+
+  if((Electrolinera<1 || Electrolinera>10) || (Punto<1 || Punto>20) || (mes<1 || mes>12) || (anio<2025 || anio>2030)){
+   printf("\n *** ERROR en los datos introducidos ***\n");
+    }else if(electrolineras[Electrolinera].ElectEnUso==false){
+      printf("\n *** ERROR La Electrolinera elegida no se encuentra definida ***\n");
+      }else if(electrolineras[Electrolinera].PuntosRecarga[Punto].PtoEnUso==false){
+        printf("\n *** ERROR El punto de recarga elegido no se encuentra definido ***\n");
+      }else{
+        /* Llamamos al método del punto para listar el calendario */
+        electrolineras[Electrolinera].PuntosRecarga[Punto].CalendarioPunto(mes,anio);
+
+      }
+
+
+
 }
 
 
@@ -303,6 +379,17 @@ void menu_principal() {
   }
 } /* Men  principal */
 
+TipoFecha TransformarFecha(int p_dia, int p_mes, int p_anio, int p_hora , int p_minuto){
+
+  TipoFecha fecha;
+  fecha.dia=p_dia;
+  fecha.mes=p_mes;
+  fecha.anio=p_anio;
+  fecha.horas=p_hora;
+  fecha.minutos=p_minuto;
+
+  return fecha;
+}
 
 void IniciarValores(){
 
@@ -311,7 +398,7 @@ void IniciarValores(){
   }
 
   /* Pondremos a 0 todo el vector de control de las electrolineras */
-  for(int i=0;i<=MAX_NUMERO_ELECTROLINERAS;i++){
+  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
     electrolineras[i].ElectEnUso=false;
     if(modo_debug==true) {
       printf("\n DEBUG : Inicializando ElecEnUso a false en Electrolinera:%2d.\n",i);
@@ -323,6 +410,16 @@ void IniciarValores(){
   electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
   electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
   electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
+  electrolineras[1].CrearPuntoRecarga(1,100,1);
+  electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFecha(12,4,2026,14,20),250);
+  electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFecha(14,5,2026,12,20),35);
+  electrolineras[1].CrearPuntoRecarga(5,200,2);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(1,1,2026,10,20),35);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(2,1,2026,12,10),5);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(15,1,2026,12,10),500);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(1,2,2026,12,00),35);
+  electrolineras[1].CrearPuntoRecarga(10,200,3);
+  electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFecha(31,1,2025,12,00),35);
 
 
 
@@ -334,7 +431,7 @@ void IniciarValores(){
 
 void ListarValores(){
   printf("\n ** DEBUG : Listado Electrolineras ** \n");
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS;i++){
+  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
     electrolineras[i].ImprimirElectrolinera(i);
   }
 }
@@ -343,6 +440,7 @@ void ListarValores(){
 int main() {
 
   /* precargar_datos();  */
+
 
   IniciarValores();
 

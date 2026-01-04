@@ -1,24 +1,46 @@
 #pragma once
+#include <stdio.h>
+#include <time.h>
+
+typedef int DiasMeses[12];
+const DiasMeses DIAS_EN_MES = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const DiasMeses DIAS_EN_MES_BISIESTO = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+const int AnioInicio = 1601;
+const int AnioFin = 3000;
+const int MesInicio = 1;
+const int MesFin = 12;
+const int FinDeLosTiempos = 1000000 ; /* días a contar desde inicio de los tiempos (1 de enero de 1601) */
+/* const int MaxEstancia = 100;  duración máxima posible de la estancia en un hotel */
+typedef int TipoVectorDiasOcupados[32];
 
 typedef struct TipoFecha{
 
- int dia;
- int mes;
- int anyo;
-
-  bool es_fecha_valida (Tipofecha fecha);
-};
-
-typedef struct TipoHora{
-
+  int dia;
+  int mes;
+  int anio;
   int horas;
   int minutos;
 
+ bool es_fecha_valida(TipoFecha fecha);
+ bool es_anio_bisiesto(int anio);
+ bool es_hora_valida(int hora, int minuto);
+ int FechaSecuencia(int dia , int mes , int anio);
+ int ReservaSecuencia(int dia, int mes, int anio , int hora, int minuto);
+
 };
 
-typedef struct TipoFechaHora{
-
-  TipoFecha fecha;
-  TipoHora hora;
-
+typedef struct Calendario {
+  int Anno;
+  int Mes;
+  int Dias;
+  TipoFecha Fecha;
+  /* Métodos */
+  bool es_bisiesto(int Anno);
+  int dias_mes(int Anno, int Mes);
+  int dia_semana(int Anno, int Mes);
+  int dias_desde_inicio(TipoFecha Fecha);
+  TipoFecha numero_fecha(int Dias);
+  void mostrar_calendario(int Anno, int Mes, TipoVectorDiasOcupados DiasOcupadosMes);
 };
+
+

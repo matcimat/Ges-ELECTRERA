@@ -7,11 +7,8 @@
 
 const int MAX_STRING_LENGTH = 21;
 typedef char TipoCadena[MAX_STRING_LENGTH];
-
-
-typedef int TipoFechas[12];
-const TipoFechas DIAS_EN_MES = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-const TipoFechas DIAS_EN_MES_BISIESTO = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
+typedef char TipoRellenaCeros[4];
+typedef char TipoIdReserva[18];
 
 
 const char RAPIDO = 'R';
@@ -20,7 +17,10 @@ const char LENTO = 'L';
 
 typedef struct TipoUtilidades{
 
-    bool es_fecha_valida(int day, int month, int year);
-    bool es_anio_bisiesto(int year);
-    bool es_hora_valida(int hora, int minuto);
+
+
+
+    void RellenaCeros(int numero, TipoRellenaCeros &resultado);
+    void GenerarIdReserva(int nivel , int punto , int numreserva,int mes, int anyo, TipoIdReserva &id_reserva);
+    bool ValidarReserva(int R_Inicio, int R_Final, int T_Inicio , int T_Final);
 };

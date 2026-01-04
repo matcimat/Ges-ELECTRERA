@@ -44,7 +44,7 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
 
   /* Ahora vamos a crear los puntos de recarga */
   for(int i=1;i<=20;i++){
-   CrearPuntoRecarga(i,0.0);
+   CrearPuntoRecarga(i,0.0,1);
   }
 
   return;
@@ -63,13 +63,46 @@ void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   }
 }
 
-void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia){
+void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia,int p_nivel){
   if(PuntosRecarga[p_id].PtoEnUso==false){
-    PuntosRecarga[p_id].Potencia=p_potencia;
-    PuntosRecarga[p_id].PtoEnUso=true;
+    /* Si la potencia es >0 creamos el punto */
+    /* Si la potencia es <=0 liberamos ell punto */
+    if(p_potencia>0){
+      PuntosRecarga[p_id].Potencia=p_potencia;
+      PuntosRecarga[p_id].PtoEnUso=true;
+      PuntosRecarga[p_id].nivel=p_nivel;
+    }else{
+      PuntosRecarga[p_id].Potencia=0.0;
+      PuntosRecarga[p_id].PtoEnUso=false;
+    }
   }else{
     printf("El punto de recarga %2d ya est%c en uso.\n",p_id,160);
   }
+}
+
+void TipoElectrolinera::ListarReservas(int identificador,int mes, int anio){
+
+  int NumReservas = 0;
+  printf("\nLa Electrolinera %s tiene las siguientes reservas para el mes %2d del a%co %4d\n",nombre,mes,164,anio);
+
+  for(int n=1;n<=3;n++){
+    /* Recorremos los puntos de recarga para cada nivel */
+    printf("\t Nivel: %d\n",n);
+    for(int p=1;p<=20;p++){
+      /* Recorremos los puntos para imprimir los de cada nivel */
+      if(PuntosRecarga[p].nivel==n){
+       /* El punto p es del nivel que estamos listando */
+       /*TODO ojo que hay que pasarle el mes y el año para que solo imprima esas */
+       NumReservas=NumReservas+PuntosRecarga[p].ListarReservas(mes,anio);
+
+      }
+    }
+
+  }
+  if(NumReservas==0){
+    printf("\nLa Electrolinera %s no tiene reservas para el mes %2d del a%co %4d\n",nombre,mes,164,anio);
+  }
+
 }
 
 
