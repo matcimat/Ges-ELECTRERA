@@ -11,7 +11,9 @@ void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
       PtoEnUso=true;
       nivel=p_nivel;
       rodaja=p_rodaja;
+      UltimaReserva=0;
       printf("\n\tCreado el punto %2d de nivel %d y rodaja %2d.",p_id,p_nivel,p_rodaja);
+      /* TODO: Asegurarse de que cuando se reutilza un punto de recarga se resetean las reservas */
 
 }
 
@@ -20,7 +22,7 @@ void TipoPunto::ImprimirPtoRecarga(int p_id_electrolinera , int p_id_punto){
     printf("\tEl punto de recarga %2d tiene el nivel %2d.\n",p_id_punto,nivel);
     /* ListarReservas(); */
   }else{
-    printf("\tEl punto de recarga %2d no est%c definido.\n",p_id_punto,160);
+    /*printf("\tEl punto de recarga %2d no est%c definido.\n",p_id_punto,160)*/;
   }
 
 }

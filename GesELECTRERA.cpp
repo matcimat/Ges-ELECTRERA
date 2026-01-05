@@ -26,6 +26,42 @@ TipoUtilidades utilidades;
 TipoFecha Inicio,Final;
 
 
+void IniciarValores(){
+
+  /* Pondremos a 0 todo el vector de control de las electrolineras */
+  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
+    electrolineras[i].ElectEnUso=false;
+  }
+
+  electrolineras[1].CrearElectroninera("Electro-1",2,3,2,"Urbana",11.11,21.21);
+  electrolineras[1].CrearPuntoRecarga(1,3,"AC",10);
+  electrolineras[1].PuntosRecarga[1].AnadirReserva(utilidades.TransformarFechaHora(12,4,2026,14,20),250);
+  electrolineras[1].PuntosRecarga[1].AnadirReserva(utilidades.TransformarFechaHora(14,5,2026,12,20),35);
+  electrolineras[1].CrearPuntoRecarga(5,15,"AC",20);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(1,1,2026,10,20),35);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(2,1,2026,12,10),5);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(15,1,2026,12,10),500);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(15,1,2026,12,20),5);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(1,2,2026,12,00),35);
+  electrolineras[1].CrearPuntoRecarga(10,100,"DC",30);
+  electrolineras[1].PuntosRecarga[10].AnadirReserva(utilidades.TransformarFechaHora(31,1,2025,12,00),35);
+
+  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
+  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
+  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
+
+
+}
+
+
+void MostrarValores(){
+  printf("\n ** DEBUG : Listado Electrolineras ** \n");
+  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
+    electrolineras[i].ImprimirElectrolinera(i);
+  }
+}
+
+
 void editar_electrolinera(){
   int identificador = 0;
   TipoNombreElectrolinera nombre;
@@ -78,7 +114,7 @@ void editar_electrolinera(){
 
   /* Vamos a comprobar si la electrolinera está libre o la reemplazamos */
   if(electrolineras[identificador].ElectEnUso==true){
-    printf("IMPORTANTE: La Electrolinera %d ya existe y va reemplazar los datos anteriores.\n",identificador);
+    printf("AVISO IMPORTANTE: La Electrolinera %d ya existe y va reemplazar los datos anteriores.\n",identificador);
   }
   printf("%cDesea continurar (S/N)? ",168);
   scanf("%c", &DatosCorrectos);
@@ -119,7 +155,7 @@ void editar_pto_recarga(){
   int Electrolinera = 0;
   int Identificador = 0;
   /*TipoNombreElectrolinera Nombre;*/
-  char TipoCorriente;
+  TipoCorriente Corriente;
   int Potencia = 0;
   int Rodaja = 0;
   char DatosCorrectos;
@@ -137,8 +173,10 @@ void editar_pto_recarga(){
   fflush(stdin);
 
   printf("\t%cTipo de corriente (DC/AC)?: ",168);
-  scanf("%c", &TipoCorriente);
+  scanf("%2s", Corriente);
   fflush(stdin);
+  utilidades.minus_a_mayus_corriente(Corriente);
+
 
   printf("\t%cPotencia (kW)?: ",168);
   scanf("%d", &Potencia);
@@ -148,29 +186,31 @@ void editar_pto_recarga(){
   scanf("%d", &Rodaja);
   fflush(stdin);
 
+  if(electrolineras[Electrolinera].ElectEnUso==false){
+    printf("\n*** ERROR: La Electrolinera %2d no est%c definida.\n",Electrolinera,160);
+    return;
+  }
 
-
-  printf("IMPORTANTE: Esta opci%cn borra los datos anteriores.\n",162);
-  printf("%cSon correctos los nuevos datos(S/N)? ",168);
+  printf("\n%cSon correctos estos datos(S/N)? ",168);
   scanf("%c", &DatosCorrectos);
   fflush(stdin);
 
   DatosCorrectos = toupper(DatosCorrectos);
 
-  /* Comprobamos si el n mero total de apartamentos no supera 20 */
-
-  /* Preguntamos si los datos son correctos */
   if (DatosCorrectos == 'S') {
-    // Son correctos: se guardan los datos con el subprograma guardar_datos_edificio(...);
-    /*guardar_datos_edificio(IdentificadorEdificio, NombreEdificio, NumeroBasicos, NumeroNormales, NumeroLujo);*/
+    try {
+      electrolineras[Electrolinera].CrearPuntoRecarga(Identificador,Potencia,Corriente,Rodaja);
+    }catch (int error)
+    {
+       printf("Ha habido un error en los datos introducidos y no hemos podido crear el punto de recarga. C%cdigo Error: %2d\n",162,error);
+       return;
+    }
 
-    /* Y ahora volvemos al menu principal */
     return;
   }
-
   else if (DatosCorrectos == 'N') {
     /* No son correctos: no se guarda nada, pero se vuelve al men  principal igualmente */
-    printf("No se guardan los datos por incorrectos\n\n");
+    printf("Operaci%c cancelada. n\n\n", 162);
     return;
   }
 
@@ -364,6 +404,16 @@ void menu_principal() {
     listar_mensual_pto();
     tecla_menu_principal_valida = true;
     break;
+  case 'I':
+    /* Funcion no documentada para Cargar unos valores iniciales de pruebas */
+    IniciarValores();
+    tecla_menu_principal_valida = true;
+    break;
+  case 'T':
+    /* Funcion no documentada para mostrar todos las Electrolineras, puntos y reservas en la memoria */
+    MostrarValores();
+    tecla_menu_principal_valida = true;
+    break;
   case 'S':
     printf("\n***\nFin\n***\n");
     salir(); /* Sale del programa */
@@ -379,59 +429,9 @@ void menu_principal() {
   }
 } /* Men  principal */
 
-TipoFecha TransformarFecha(int p_dia, int p_mes, int p_anio, int p_hora , int p_minuto){
-
-  TipoFecha fecha;
-  fecha.dia=p_dia;
-  fecha.mes=p_mes;
-  fecha.anio=p_anio;
-  fecha.horas=p_hora;
-  fecha.minutos=p_minuto;
-
-  return fecha;
-}
-
-void IniciarValores(){
-
-  if(modo_debug==true) {
-    printf("IniciarValores\n");
-  }
-
-  /* Pondremos a 0 todo el vector de control de las electrolineras */
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
-    electrolineras[i].ElectEnUso=false;
-    if(modo_debug==true) {
-      printf("\n DEBUG : Inicializando ElecEnUso a false en Electrolinera:%2d.\n",i);
-    }
-  }
-
-  electrolineras[1].CrearElectroninera("Electro-1",2,3,2,"Urbana",11.11,21.21);
-  electrolineras[1].CrearPuntoRecarga(1,3,"AC",10);
-  electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFecha(12,4,2026,14,20),250);
-  electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFecha(14,5,2026,12,20),35);
-  electrolineras[1].CrearPuntoRecarga(5,15,"AC",20);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(1,1,2026,10,20),35);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(2,1,2026,12,10),5);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(15,1,2026,12,10),500);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(15,1,2026,12,20),5);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(1,2,2026,12,00),35);
-  electrolineras[1].CrearPuntoRecarga(10,100,"DC",30);
-  electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFecha(31,1,2025,12,00),35);
-
-  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
-  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
-  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
 
 
-}
 
-
-void ListarValores(){
-  printf("\n ** DEBUG : Listado Electrolineras ** \n");
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
-    electrolineras[i].ImprimirElectrolinera(i);
-  }
-}
 
 /* Programa principal */
 int main() {
@@ -446,7 +446,7 @@ int main() {
   while (seguir_ejecutando) {
 
     if(modo_debug==true){
-      ListarValores();
+      MostrarValores();
       }
     menu_principal();
   }

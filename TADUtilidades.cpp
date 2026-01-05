@@ -5,16 +5,6 @@
 #include <string.h>
 
 
-
-
-
-
-
-
-
-
-
-
 void TipoUtilidades::RellenaCeros(int numero, TipoRellenaCeros &resultado){
 
   typedef char TipoResultado[5];
@@ -66,4 +56,27 @@ bool TipoUtilidades::ValidarReserva(int R_Inicio, int R_Final, int T_Inicio , in
  }
 
  return true;
+}
+
+void TipoUtilidades::minus_a_mayus_corriente(TipoCorriente &cadena){
+
+  /* Aqui convertimos la cadena apuntada por el puntero a mayusculas */
+  int longitud;
+  longitud=strlen(cadena);
+  for(int i=0;i<longitud;i++){
+    cadena[i]=toupper(cadena[i]);
+  }
+
+}
+
+TipoFecha TipoUtilidades::TransformarFechaHora(int p_dia, int p_mes, int p_anio, int p_hora , int p_minuto){
+
+  TipoFecha fecha;
+  fecha.dia=p_dia;
+  fecha.mes=p_mes;
+  fecha.anio=p_anio;
+  fecha.horas=p_hora;
+  fecha.minutos=p_minuto;
+
+  return fecha;
 }
