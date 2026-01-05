@@ -95,7 +95,7 @@ void editar_electrolinera(){
         electrolineras[identificador].CrearElectroninera(nombre,npuntos_r,npuntos_s,npuntos_l,tipo,latitud,longitud);
         printf("Electrolinera creada correctamente.\n");
     }catch (int error){
-       printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera. C%digo Error: %2d\n",162,error);
+       printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera. C%cdigo Error: %2d\n",162,error);
        return;
     }
   }
@@ -405,25 +405,22 @@ void IniciarValores(){
     }
   }
 
-
-  electrolineras[1].CrearElectroninera("Electro-1",8,6,6,"Urbana",11.11,21.21);
-  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
-  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
-  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
-  electrolineras[1].CrearPuntoRecarga(1,100,1);
+  electrolineras[1].CrearElectroninera("Electro-1",2,3,2,"Urbana",11.11,21.21);
+  electrolineras[1].CrearPuntoRecarga(1,3,"AC",10);
   electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFecha(12,4,2026,14,20),250);
   electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFecha(14,5,2026,12,20),35);
-  electrolineras[1].CrearPuntoRecarga(5,200,2);
+  electrolineras[1].CrearPuntoRecarga(5,15,"AC",20);
   electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(1,1,2026,10,20),35);
   electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(2,1,2026,12,10),5);
   electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(15,1,2026,12,10),500);
+  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(15,1,2026,12,20),5);
   electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFecha(1,2,2026,12,00),35);
-  electrolineras[1].CrearPuntoRecarga(10,200,3);
+  electrolineras[1].CrearPuntoRecarga(10,100,"DC",30);
   electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFecha(31,1,2025,12,00),35);
 
-
-
-
+  electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
+  electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
+  electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
 
 
 }

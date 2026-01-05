@@ -30,17 +30,17 @@ typedef struct TipoFecha{
 };
 
 typedef struct Calendario {
-  int Anno;
+  int Anio;
   int Mes;
   int Dias;
   TipoFecha Fecha;
   /* Métodos */
-  bool es_bisiesto(int Anno);
-  int dias_mes(int Anno, int Mes);
-  int dia_semana(int Anno, int Mes);
+  bool es_bisiesto(int Anio);
+  int dias_mes(int Anio, int Mes);
+  int dia_semana(int Anio, int Mes);
   int dias_desde_inicio(TipoFecha Fecha);
   TipoFecha numero_fecha(int Dias);
-  void mostrar_calendario(int Anno, int Mes, TipoVectorDiasOcupados DiasOcupadosMes);
+  void mostrar_calendario(int Anio, int Mes, TipoVectorDiasOcupados DiasOcupadosMes);
 };
 
 

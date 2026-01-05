@@ -34,17 +34,17 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
 
   /* Si llegamos a este punto es que los datos son correctos y vamos a crear la electrolinera */
   strcpy(nombre,p_nombre);
-  NPtosRapidos=p_npuntos_r;
-  NPtosSemi=p_npuntos_s;
-  NPtosLentos=p_npuntos_l;
+  NPtosRapidos3=p_npuntos_r;
+  NPtosSemi2=p_npuntos_s;
+  NPtosLentos1=p_npuntos_l;
   strcpy(tipo,p_tipo);
   latitud=p_latitud;
   longitud=p_longitud;
   ElectEnUso=true;
 
-  /* Ahora vamos a crear los puntos de recarga */
+  /* Ahora vamos a inicializar los puntos de recarga */
   for(int i=1;i<=20;i++){
-   CrearPuntoRecarga(i,0.0,1);
+   CrearPuntoRecarga(i,0.0,"IN",0);
   }
 
   return;
@@ -53,7 +53,7 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
 void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   if(ElectEnUso==true){
     printf("La Elec=%2d ,nombre=%s , tipo=%s , Puntos: %d , %d , %d , latitud=%f , longitud=%f \n",p_identificador,nombre,tipo,
-            NPtosRapidos,NPtosSemi,NPtosLentos,latitud,longitud);
+            NPtosRapidos3,NPtosSemi2,NPtosLentos1,latitud,longitud);
     /* Tambien Imprimios los puntos de Recarga, para ello le pasamos a la función el identificador de la electrolinera y el número del punto de recarga */
     for(int i=1;i<=20;i++){
       PuntosRecarga[i].ImprimirPtoRecarga(p_identificador,i);
@@ -63,22 +63,87 @@ void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   }
 }
 
-void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia,int p_nivel){
-  if(PuntosRecarga[p_id].PtoEnUso==false){
+
+void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorriente p_tipo, int p_rodaja){
+
     /* Si la potencia es >0 creamos el punto */
     /* Si la potencia es <=0 liberamos ell punto */
-    if(p_potencia>0){
-      PuntosRecarga[p_id].Potencia=p_potencia;
-      PuntosRecarga[p_id].PtoEnUso=true;
-      PuntosRecarga[p_id].nivel=p_nivel;
+
+  /* TODO: Hay que comprobar si el punto está en uso para sobrescribirlo y recuperar el slot del tipo de punto */
+
+
+  if(strcmp(p_tipo,"DC")==0){
+    /* Nivel 3: La potencia debe estar entre 50 y 300 */
+    if((p_potencia<50) || (p_potencia>300)){
+     /* Potencia Incorrecta */
+      printf("\n *** ERROR:Potencia incorrecta para tipo de corriente DC ***\n ");
+      /* throw 1; */
     }else{
-      PuntosRecarga[p_id].Potencia=0.0;
-      PuntosRecarga[p_id].PtoEnUso=false;
+      /* Comprobamos que no excedemos el numero de puntos de nivel 3 */
+      if(NPtosRapidos3<1){
+        printf("\n *** ERROR:No quedan puntos disponibles de Nivel 3 ***\n ");
+        /* throw 1; */
+      }else{
+        NPtosRapidos3--;
+        printf("\n Creando punto %d , de nivel 3",p_id);
+        PuntosRecarga[p_id].CrearPtoRecarga(p_id,3,p_rodaja);
+        return;
+      }
     }
+  }else if(strcmp(p_tipo,"AC")==0){
+
+    /* Tenemos que ver la potencia para ver el nivel */
+
+
+/*  int NPtosSemi; */
+/*  int NPtosLentos */
+
+    if((p_potencia>=2) && (p_potencia<=4)){
+    /* Nivel 1: Potencia entre 2 y 4 */
+     if(NPtosLentos1<1){
+        printf("\n *** ERROR:No quedan puntos disponibles de Nivel 1 ***\n ");
+        /* throw 1; */
+      }else{
+        NPtosLentos1--;
+        printf("\n Creando punto %d , de nivel 1",p_id);
+        PuntosRecarga[p_id].CrearPtoRecarga(p_id,1,p_rodaja);
+        return;
+      }
+    }else if((p_potencia>=11) && (p_potencia<=22)){
+    /* Nivel 2: Potencia entre 11 y 22 */
+     if(NPtosSemi2<1){
+        printf("\n *** ERROR:No quedan puntos disponibles de Nivel 2 ***\n ");
+        /* throw 1; */
+      }else{
+        NPtosSemi2--;
+        printf("\n Creando punto %d , de nivel 2",p_id);
+        PuntosRecarga[p_id].CrearPtoRecarga(p_id,2,p_rodaja);
+return;
+      }
+    }else{
+      printf("\n *** ERROR:Potencia incorrecta para tipo de corriente AC ***\n ");
+      /* throw 1; */
+    }
+
+  }else if(strcmp(p_tipo,"IN")==0){
+
+    /* Aqui inicializamos los puntos de recarga */
+      PuntosRecarga[p_id].rodaja=0;
+      PuntosRecarga[p_id].nivel=0;
+      PuntosRecarga[p_id].PtoEnUso=false;
+      /* printf("\nEl punto de recarga %d ha sido inicializado",p_id); */
+      return;
+
   }else{
-    printf("El punto de recarga %2d ya est%c en uso.\n",p_id,160);
+    /* Error en el tipo de corriente */
+    printf("\n *** ERROR:El tipo de corriente debe ser AC o DC ***\n ");
+    /* throw 1; */
   }
+
+
 }
+
+
 
 void TipoElectrolinera::ListarReservas(int identificador,int mes, int anio){
 

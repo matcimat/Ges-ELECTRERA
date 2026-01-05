@@ -6,10 +6,18 @@
 
 
 
+void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
+
+      PtoEnUso=true;
+      nivel=p_nivel;
+      rodaja=p_rodaja;
+      printf("\n\tCreado el punto %2d de nivel %d y rodaja %2d.",p_id,p_nivel,p_rodaja);
+
+}
 
 void TipoPunto::ImprimirPtoRecarga(int p_id_electrolinera , int p_id_punto){
   if(PtoEnUso==true){
-    printf("\tEl punto de recarga %2d tiene la potencia de %2.1f KW.\n",p_id_punto,Potencia);
+    printf("\tEl punto de recarga %2d tiene el nivel %2d.\n",p_id_punto,nivel);
     /* ListarReservas(); */
   }else{
     printf("\tEl punto de recarga %2d no est%c definido.\n",p_id_punto,160);
@@ -96,7 +104,7 @@ void TipoPunto::CalendarioPunto(int p_mes, int p_anio){
   calendario.mostrar_calendario(p_anio, p_mes, ocupacion);
 
   printf("\n\nPunto de Carga %d - N%d\n",identificador,nivel);
-  printf("Dia de m%cxima ocupaci%cn: %02d-%02d-%04d (%2.1f)\n",160,162,fecha_max_ocupa.dia,p_mes,p_anio,maximo);
+  printf("Dia de m%cxima ocupaci%cn: %02d-%02d-%04d (%d minutos)\n",160,162,fecha_max_ocupa.dia,p_mes,p_anio,dia_maximo);
 
 }
 

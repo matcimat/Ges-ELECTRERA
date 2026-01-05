@@ -264,7 +264,7 @@ TipoFecha Calendario::numero_fecha(int Dias) {
 
   while (Dias > DiasAnio) {
 
-    if (es_bisiesto(Anno)) {
+    if (es_bisiesto(Anio)) {
       DiasAnio = 366;
     } else {
       DiasAnio = 365;
