@@ -5,6 +5,7 @@
 
 
 typedef TipoReserva ListaReservas[100];
+typedef char TipoNombreElectrolinera[21];
 
 
 typedef struct TipoPunto{
@@ -23,7 +24,7 @@ typedef struct TipoPunto{
   int BuscarReserva(TipoFecha inicio , TipoFecha final);
   void AnadirReserva(TipoFecha inicio , int duracion);
   int ListarReservas(int mes, int anio);
-  void CalendarioPunto(int mes, int anio);
+  void CalendarioPunto(int id_ele,TipoNombreElectrolinera nombre ,int id_pto,int mes, int anio);
 
 
 };

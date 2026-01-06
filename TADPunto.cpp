@@ -67,13 +67,13 @@ int TipoPunto::ListarReservas(int p_mes,int p_anio){
   return contador;
 }
 
-void TipoPunto::CalendarioPunto(int p_mes, int p_anio){
+void TipoPunto::CalendarioPunto(int id_ele, TipoNombreElectrolinera nombre,int id_pto, int p_mes, int p_anio){
 
   TipoVectorDiasOcupados ocupacion = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
   TipoFecha fecha_max_ocupa;
   Calendario calendario;
   int dia_maximo=0;
-  float maximo=0.0;
+  int maximo=0;
   int contador=0;
   fecha_max_ocupa.dia=0;
   fecha_max_ocupa.mes=p_mes;
@@ -93,20 +93,19 @@ void TipoPunto::CalendarioPunto(int p_mes, int p_anio){
         fecha_max_ocupa.dia=i;
       }
     }
-    /* TODO: El % de uso del maximo dia no se pinta bien */
-    maximo = float((dia_maximo/1440)*100);
+    maximo = dia_maximo*100/1440;
   }
 
 
 
 
-  printf("\n\n\t\t\t Ocupaci%cn Punto de Recarga: %d\n",162,identificador);
-  printf("\t\t\t Electrolinera: %d\n",1);
+  printf("\n\n\t\t\t Ocupaci%cn Punto de Recarga: %2d\n",162,id_pto);
+  printf("\t\t\t Electrolinera: %s\n",nombre);
 
   calendario.mostrar_calendario(p_anio, p_mes, ocupacion);
 
-  printf("\n\nPunto de Carga %d - N%d\n",identificador,nivel);
-  printf("Dia de m%cxima ocupaci%cn: %02d-%02d-%04d (%d minutos)\n",160,162,fecha_max_ocupa.dia,p_mes,p_anio,dia_maximo);
+  printf("\n\nPunto de Carga %2d - N%d\n",id_pto,nivel);
+  printf("Dia de m%cxima ocupaci%cn: %02d-%02d-%04d (%3d%%)\n",160,162,fecha_max_ocupa.dia,p_mes,p_anio,maximo);
 
 }
 

@@ -44,7 +44,7 @@ void IniciarValores(){
   electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(15,1,2026,12,20),5);
   electrolineras[1].PuntosRecarga[5].AnadirReserva(utilidades.TransformarFechaHora(1,2,2026,12,00),35);
   electrolineras[1].CrearPuntoRecarga(10,100,"DC",30);
-  electrolineras[1].PuntosRecarga[10].AnadirReserva(utilidades.TransformarFechaHora(31,1,2025,12,00),35);
+  electrolineras[1].PuntosRecarga[10].AnadirReserva(utilidades.TransformarFechaHora(31,1,2026,12,00),35);
 
   electrolineras[2].CrearElectroninera("Electro-2",20,0,0,"Mixta",22.22,32.32);
   electrolineras[3].CrearElectroninera("Electro-3",0,20,0,"Ruta",33.33,43.43);
@@ -330,10 +330,12 @@ void listar_mensual_pto(){
   scanf("%d", &Punto);
   fflush(stdin);
 
+  /* TODO: Bucle que pregunte si quieres mostrar otro mes y año */
+
   printf("\t%cSelecci%cn: Mes?: ",168,162);
   scanf("%d", &mes);
   fflush(stdin);
-  /* FechaEntradaSolicitada.Mes = FechaEntradaMes; */
+
 
   printf("\t%cSelecci%cn: A%co?: ",168,162,164);
   scanf("%d", &anio);
@@ -347,7 +349,7 @@ void listar_mensual_pto(){
         printf("\n *** ERROR El punto de recarga elegido no se encuentra definido ***\n");
       }else{
         /* Llamamos al método del punto para listar el calendario */
-        electrolineras[Electrolinera].PuntosRecarga[Punto].CalendarioPunto(mes,anio);
+        electrolineras[Electrolinera].PuntosRecarga[Punto].CalendarioPunto(Electrolinera,electrolineras[Electrolinera].nombre,Punto,mes,anio);
 
       }
 
