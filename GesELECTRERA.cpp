@@ -125,7 +125,6 @@ void editar_electrolinera(){
 
   /* Preguntamos si los datos son correctos */
   if (DatosCorrectos == 'S') {
-    /* Son correctos: se guardan los datos con el subprograma guardar_datos_edificio(...); */
     /* Lo metemos en un try catch para capturar si ha fallado la creación y poder realizar las acciones oportunas */
     try {
         electrolineras[identificador].CrearElectroninera(nombre,npuntos_r,npuntos_s,npuntos_l,tipo,latitud,longitud);
@@ -146,15 +145,12 @@ void editar_electrolinera(){
     printf("\n*** S%clo se admiten las opciones S(si) o N(no) y has tecleado %c ***\n",162, DatosCorrectos);
     return;
   }
-} /* Ediar edificio*/
-
-
+}
 
 void editar_pto_recarga(){
 
   int Electrolinera = 0;
   int Identificador = 0;
-  /*TipoNombreElectrolinera Nombre;*/
   TipoCorriente Corriente;
   int Potencia = 0;
   int Rodaja = 0;
@@ -249,12 +245,10 @@ void reservar_pto_recarga(){
   printf("\t%cDatos Reserva: Dia?: ",168);
   scanf("%d", &dia);
   fflush(stdin);
-  /* FechaEntradaSolicitada.Dia = FechaEntradaDia; */
 
   printf("\t%cDatos Reserva: Mes?: ",168);
   scanf("%d", &mes);
   fflush(stdin);
-  /* FechaEntradaSolicitada.Mes = FechaEntradaMes; */
 
   printf("\t%cDatos Reserva: A%co?: ",168,164);
   scanf("%d", &anio);
@@ -294,13 +288,12 @@ void listar_reservas_electrolinera(){
   printf("\t%cSelecci%cn: Mes?: ",168,162);
   scanf("%d", &mes);
   fflush(stdin);
-  /* FechaEntradaSolicitada.Mes = FechaEntradaMes; */
 
   printf("\t%cSelecci%cn: A%co?: ",168,162,164);
   scanf("%d", &anio);
   fflush(stdin);
 
-  if((Electrolinera<1 || Electrolinera>10) || (mes<1 || mes>12) || (anio<2025 || anio>2030)){
+  if((Electrolinera<1) || (Electrolinera>10) || (mes<1 || mes>12) || (anio<2025) || (anio>2030) ){
    printf("\n *** ERROR en los datos introducidos ***\n");
     }else if(electrolineras[Electrolinera].ElectEnUso==false){
       printf("\n *** ERROR La Electrolinera elegida no se encuentra definida ***\n");
@@ -319,6 +312,7 @@ void listar_mensual_pto(){
   int Punto;
   int mes=0;
   int anio=0;
+  char continuar = 'S';
 
   printf("Reservas Mensuales Punto de Recarga:\n\n");
 
@@ -330,29 +324,33 @@ void listar_mensual_pto(){
   scanf("%d", &Punto);
   fflush(stdin);
 
-  /* TODO: Bucle que pregunte si quieres mostrar otro mes y año */
 
-  printf("\t%cSelecci%cn: Mes?: ",168,162);
-  scanf("%d", &mes);
-  fflush(stdin);
+  while(continuar=='S'){
+    printf("\t%cSelecci%cn: Mes?: ",168,162);
+    scanf("%d", &mes);
+    fflush(stdin);
 
 
-  printf("\t%cSelecci%cn: A%co?: ",168,162,164);
-  scanf("%d", &anio);
-  fflush(stdin);
+    printf("\t%cSelecci%cn: A%co?: ",168,162,164);
+    scanf("%d", &anio);
+    fflush(stdin);
 
-  if((Electrolinera<1 || Electrolinera>10) || (Punto<1 || Punto>20) || (mes<1 || mes>12) || (anio<2025 || anio>2030)){
-   printf("\n *** ERROR en los datos introducidos ***\n");
-    }else if(electrolineras[Electrolinera].ElectEnUso==false){
-      printf("\n *** ERROR La Electrolinera elegida no se encuentra definida ***\n");
-      }else if(electrolineras[Electrolinera].PuntosRecarga[Punto].PtoEnUso==false){
-        printf("\n *** ERROR El punto de recarga elegido no se encuentra definido ***\n");
-      }else{
-        /* Llamamos al método del punto para listar el calendario */
-        electrolineras[Electrolinera].PuntosRecarga[Punto].CalendarioPunto(Electrolinera,electrolineras[Electrolinera].nombre,Punto,mes,anio);
+    if((Electrolinera<1 || Electrolinera>10) || (Punto<1 || Punto>20) || (mes<1 || mes>12) || (anio<2025 || anio>2030)){
+     printf("\n *** ERROR en los datos introducidos ***\n");
+      }else if(electrolineras[Electrolinera].ElectEnUso==false){
+        printf("\n *** ERROR La Electrolinera elegida no se encuentra definida ***\n");
+        }else if(electrolineras[Electrolinera].PuntosRecarga[Punto].PtoEnUso==false){
+          printf("\n *** ERROR El punto de recarga elegido no se encuentra definido ***\n");
+        }else{
+          /* Llamamos al método del punto para listar el calendario */
+          electrolineras[Electrolinera].PuntosRecarga[Punto].CalendarioPunto(Electrolinera,electrolineras[Electrolinera].nombre,Punto,mes,anio);
 
-      }
-
+        }
+    printf("\n\n%cQuiere mostrar otro mes (S/N)? ",168);
+    scanf("%c", &continuar);
+    fflush(stdin);
+    continuar=toupper(continuar);
+  }
 
 
 }

@@ -52,7 +52,7 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
 
 void TipoElectrolinera::ImprimirElectrolinera(int p_identificador){
   if(ElectEnUso==true){
-    printf("La Electrolinera=%2d ,nombre=%s , tipo=%s , Puntos:R=%d , %S=d , %L=d , latitud=%f , longitud=%f \n",p_identificador,nombre,tipo,
+    printf("La Electrolinera=%2d ,nombre=%s , tipo=%s , Puntos:R=%d , S=%d , L=%d , latitud=%f , longitud=%f \n",p_identificador,nombre,tipo,
             NPtosRapidos3,NPtosSemi2,NPtosLentos1,latitud,longitud);
     /* Tambien Imprimios los puntos de Recarga, para ello le pasamos a la función el identificador de la electrolinera y el número del punto de recarga */
     for(int i=1;i<=20;i++){

@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Constantes.cpp" open="0" top="0" tabpos="9">
+	<File name="Constantes.cpp" open="1" top="0" tabpos="12">
 		<Cursor position="25" topLine="0" />
 	</File>
-	<File name="Constantes.h" open="0" top="0" tabpos="6">
+	<File name="Constantes.h" open="1" top="0" tabpos="11">
 		<Cursor position="45" topLine="0" />
 	</File>
-	<File name="GesELECTRERA.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="2336" topLine="40" />
+	<File name="GesELECTRERA.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="8479" topLine="284" />
 	</File>
 	<File name="TADCalendario.cpp" open="1" top="0" tabpos="10">
-		<Cursor position="4370" topLine="177" />
+		<Cursor position="4848" topLine="197" />
 	</File>
 	<File name="TADCalendario.h" open="1" top="0" tabpos="9">
 		<Cursor position="1280" topLine="23" />
 	</File>
-	<File name="TADElectrolinera.cpp" open="1" top="1" tabpos="8">
-		<Cursor position="2293" topLine="0" />
+	<File name="TADElectrolinera.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="1951" topLine="44" />
 	</File>
 	<File name="TADElectrolinera.h" open="1" top="0" tabpos="7">
-		<Cursor position="270" topLine="13" />
+		<Cursor position="557" topLine="9" />
 	</File>
 	<File name="TADPunto.cpp" open="1" top="0" tabpos="6">
-		<Cursor position="792" topLine="0" />
+		<Cursor position="2013" topLine="9" />
 	</File>
 	<File name="TADPunto.h" open="1" top="0" tabpos="5">
-		<Cursor position="314" topLine="6" />
+		<Cursor position="690" topLine="7" />
 	</File>
 	<File name="TADReserva.cpp" open="0" top="0" tabpos="8">
 		<Cursor position="27" topLine="0" />

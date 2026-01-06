@@ -111,17 +111,17 @@ bool Calendario::es_bisiesto(int Anno) {
 }
 
 /* Método: número de días del mes */
-int Calendario::dias_mes(int Anno, int Mes) {
+int Calendario::dias_mes(int Anio, int Mes) {
 
-  bool AnnoBisiesto;
-  AnnoBisiesto = es_bisiesto(Anno);
+  bool AnioBisiesto;
+  AnioBisiesto = es_bisiesto(Anio);
 
   /* Febrero */
 
   if (Mes == 2) {
 
     /* Bisiesto: 29 días */
-    if (AnnoBisiesto == true) {
+    if (AnioBisiesto == true) {
       return 29;
     }
 
@@ -143,22 +143,22 @@ int Calendario::dias_mes(int Anno, int Mes) {
 } /* Número de días del mes */
 
 /*-- Función: día de la semana del primer día del mes que se imprime --*/
-int Calendario::dia_semana(int Anno, int Mes) {
+int Calendario::dia_semana(int Anio, int Mes) {
 
   int ContadorDias = 1;
   int ContadorMeses = 1;
-  int ContadorAnnos = AnioInicio;
+  int ContadorAnios = AnioInicio;
   int Resto = 0;
   int DiaSemana = 1;
   int DiasMes;
-  bool AnnoBisiesto = false;
+  bool AnioBisiesto = false;
 
   /* Suma el número de días de cada año al contador de días */ {
-    while (ContadorAnnos < Anno ) {
+    while (ContadorAnios < Anio ) {
 
-      AnnoBisiesto = es_bisiesto(ContadorAnnos);
+      AnioBisiesto = es_bisiesto(ContadorAnios);
 
-      if (AnnoBisiesto) {
+      if (AnioBisiesto) {
         ContadorDias = ContadorDias + 366;
       }
 
@@ -166,16 +166,16 @@ int Calendario::dia_semana(int Anno, int Mes) {
         ContadorDias = ContadorDias + 365;
       }
 
-      ContadorAnnos++;
+      ContadorAnios++;
 
     }
   }
 
   /* Suma el número de días de cada mes al contador de días */ {
-    AnnoBisiesto = es_bisiesto(Anno);
+    AnioBisiesto = es_bisiesto(Anio);
 
     while (ContadorMeses < Mes ) {
-      DiasMes = dias_mes(Anno, ContadorMeses);
+      DiasMes = dias_mes(Anio, ContadorMeses);
       ContadorDias = ContadorDias + DiasMes;
       ContadorMeses++;
     }

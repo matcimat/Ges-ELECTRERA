@@ -4,7 +4,7 @@
 
 1764591625 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectronilera.h
 
-1767696248 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
+1767697943 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
 	<stdio.h>
 	<ctype.h>
 	<stdlib.h>
@@ -15,10 +15,10 @@
 	"TADUtilidades.h"
 	"TADCalendario.h"
 
-1767617620 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.h
+1767697147 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.h
 	"TADPunto.h"
 
-1767629312 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.cpp
+1767698000 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.cpp
 	<string.h>
 	<stdio.h>
 	"TADElectrolinera.h"
@@ -61,6 +61,6 @@
 	<stdio.h>
 	<time.h>
 
-1767598851 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadcalendario.cpp
+1767697943 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadcalendario.cpp
 	"TADCalendario.h"
 
