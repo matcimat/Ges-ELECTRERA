@@ -9,6 +9,7 @@
 void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
 
       PtoEnUso=true;
+      identificador=p_id;
       nivel=p_nivel;
       rodaja=p_rodaja;
       UltimaReserva=0;
@@ -20,7 +21,7 @@ void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
 void TipoPunto::ImprimirPtoRecarga(int p_id_electrolinera , int p_id_punto){
   if(PtoEnUso==true){
     printf("\tEl punto de recarga %2d tiene el nivel %2d.\n",p_id_punto,nivel);
-    /* ListarReservas(); */
+    ListarTodasReservas();
   }else{
     /*printf("\tEl punto de recarga %2d no est%c definido.\n",p_id_punto,160)*/;
   }
@@ -59,13 +60,30 @@ int TipoPunto::ListarReservas(int p_mes,int p_anio){
   if(UltimaReserva>0){
     for(int i=1;i<=UltimaReserva;i++){
       if((Reservas[i].Inicio.mes==p_mes) && (Reservas[i].Inicio.anio==p_anio)){
-        printf("\t\tReserva %d : inicio %02d-%02d-%02d con duracion %02d\n" , i , Reservas[i].Inicio.dia,Reservas[i].Inicio.mes,Reservas[i].Inicio.anio,Reservas[i].duracion);
+        printf("\t\tPunto de recarga %2d-%04d-%02d-%04d Fecha %02d-%02d-%02d Hora:%02d:%02d duraci%cn %3d min.\n ",
+        identificador,i,Reservas[i].Inicio.mes,Reservas[i].Inicio.anio,Reservas[i].Inicio.dia,Reservas[i].Inicio.mes,Reservas[i].Inicio.anio,
+        Reservas[i].Inicio.horas,Reservas[i].Inicio.minutos,162,Reservas[i].duracion);
         contador++;
       }
     }
   }
   return contador;
 }
+
+
+int TipoPunto::ListarTodasReservas(){
+
+ int contador=0;
+  if(UltimaReserva>0){
+    for(int i=1;i<=UltimaReserva;i++){
+      printf("\t\tReserva %d : inicio %02d-%02d-%02d con duracion %2d\n" , i , Reservas[i].Inicio.dia,Reservas[i].Inicio.mes,Reservas[i].Inicio.anio,Reservas[i].duracion);
+      contador++;
+    }
+  }
+  return contador;
+}
+
+
 
 void TipoPunto::CalendarioPunto(int id_ele, TipoNombreElectrolinera nombre,int id_pto, int p_mes, int p_anio){
 

@@ -23,7 +23,7 @@ typedef struct TipoFecha{
 
  bool es_fecha_valida(TipoFecha fecha);
  bool es_anio_bisiesto(int anio);
- bool es_hora_valida(int hora, int minuto);
+ bool es_hora_valida(TipoFecha fecha);
  int FechaSecuencia(int dia , int mes , int anio);
  int ReservaSecuencia(int dia, int mes, int anio , int hora, int minuto);
 

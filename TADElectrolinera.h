@@ -27,8 +27,9 @@ typedef struct TipoElectrolinera{
                          TipoUbicacionElectrolinera Tipo, float latitud, float longitud);
   void ImprimirElectrolinera(int identificador);
   void ListarReservas(int identificador,int mes, int anio);
-
   void CrearPuntoRecarga(int p_id,float p_potencia, TipoCorriente p_tipo, int rodaja);
+  void BuscarHuecoReserva(int nivel,TipoFecha FechaInicio,int duracion);
+
 
 
 

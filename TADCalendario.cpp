@@ -29,9 +29,9 @@ bool TipoFecha::es_anio_bisiesto(int anio){
 
 }
 
-bool TipoFecha::es_hora_valida(int hora, int minuto)
+bool TipoFecha::es_hora_valida(TipoFecha p_fecha)
 {
-   if (hora < 0 || minuto < 0 || hora > 24 || minuto > 59 ) {
+   if (p_fecha.horas < 0 || p_fecha.minutos < 0 || p_fecha.horas > 23 || p_fecha.minutos > 59 ) {
       return false;
   }
   return true;

@@ -195,3 +195,11 @@ void TipoElectrolinera::ListarReservas(int identificador,int mes, int anio){
 }
 
 
+void TipoElectrolinera::BuscarHuecoReserva(int nivel,TipoFecha FechaInicio,int duracion){
+ /* En esta función se intentará buscar el hueco para ahcer la reserva */
+ /* Para ello haremos un bucle por todos los puntos de recarga de la electrolinera, y para aquellos que sean del nivel necesario
+ /* le pasaremos a ese punto que intente buscar el hueco */
+
+
+}
+

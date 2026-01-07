@@ -51,6 +51,7 @@ void IniciarValores(){
   electrolineras[4].CrearElectroninera("Electro-4",0,0,20,"Urbana",44.44,55.55);
 
 
+
 }
 
 
@@ -219,16 +220,19 @@ void editar_pto_recarga(){
 
 void reservar_pto_recarga(){
 
-  typedef char TipoPtoRecarga[2];
+  typedef char TipoPtoRecarga[3];
 
   int Electrolinera = 0;
-  TipoPtoRecarga TipoPto;
+  TipoPtoRecarga TipoPunto;
+  TipoFecha FechaInicio;
+  int nivel=0;
   int dia=0;
   int mes=0;
   int anio=0;
   int hora=0;
   int minuto=0;
   int duracion=0;
+  char DatosCorrectos;
 
   printf("Reservar Punto de Recarga:\n\n");
 
@@ -237,10 +241,16 @@ void reservar_pto_recarga(){
   fflush(stdin);
 
   printf("\t%cTipo de Punto de Recarga (Nivel 1/Nivel 2/Nivel 3)?: ",168);
-  scanf("%c", TipoPto);
-  /* TipoPunto = toupper(TipoPunto); */
-
+  scanf("%2s", TipoPunto);
   fflush(stdin);
+
+  if(strcmp(TipoPunto,"N1")==0 || strcmp(TipoPunto,"n1")==0){
+    nivel=1;
+  }else if(strcmp(TipoPunto,"N2")==0 || strcmp(TipoPunto,"n2")==0){
+    nivel=2;
+  }else if(strcmp(TipoPunto,"N3")==0 || strcmp(TipoPunto,"n3")==0){
+    nivel=3;
+  }
 
   printf("\t%cDatos Reserva: Dia?: ",168);
   scanf("%d", &dia);
@@ -271,6 +281,52 @@ void reservar_pto_recarga(){
 
   fflush(stdin);
 
+  if((Electrolinera<1) || (Electrolinera>10) || (nivel<1) || (nivel>3)){
+      printf("\n *** ERROR en los datos introducidos de electrolinera y/o nivel no son correctos ***\n");
+      return;
+  }
+
+  FechaInicio=utilidades.TransformarFechaHora(dia,mes,anio,hora,minuto);
+
+  if(FechaInicio.es_fecha_valida(FechaInicio)==false){
+      printf("\n *** ERROR la fecha no es correcta ***\n");
+      return;
+  }
+
+  if(FechaInicio.es_hora_valida(FechaInicio)==false){
+      printf("\n *** ERROR la hora no es correcta ***\n");
+      return;
+  }
+
+  if(electrolineras[Electrolinera].ElectEnUso==false){
+    printf("\n*** ERROR: La Electrolinera %2d no est%c definida.\n",Electrolinera,160);
+    return;
+  }
+
+  printf("\n%cSon correctos estos datos(S/N)? ",168);
+  scanf("%c", &DatosCorrectos);
+  fflush(stdin);
+
+  DatosCorrectos = toupper(DatosCorrectos);
+
+  if (DatosCorrectos == 'S'){
+      printf("\nCreamos la reserva");
+      try{
+        electrolineras[Electrolinera].BuscarHuecoReserva(nivel,FechaInicio,duracion);
+      }catch (int error){
+        printf("No hay disponibilidad para hacer la reserva. Intente en otro horario.",162,error);
+        return;
+      }
+      return;
+
+  }else if (DatosCorrectos == 'N') {
+    printf("Operaci%c cancelada. n\n\n", 162);
+    return;
+  }
+  else {
+    printf("\n*** S%clo se admiten las opciones S (s ) o N (no) y has tecleado %c ***\n", DatosCorrectos,162);
+    return;
+  }
 }
 
 void listar_reservas_electrolinera(){

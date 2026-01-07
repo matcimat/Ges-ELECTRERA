@@ -24,6 +24,7 @@ typedef struct TipoPunto{
   int BuscarReserva(TipoFecha inicio , TipoFecha final);
   void AnadirReserva(TipoFecha inicio , int duracion);
   int ListarReservas(int mes, int anio);
+  int ListarTodasReservas();
   void CalendarioPunto(int id_ele,TipoNombreElectrolinera nombre ,int id_pto,int mes, int anio);
 
 
