@@ -17,11 +17,11 @@ const char RAPIDO = 'R';
 const char SEMI = 'S';
 const char LENTO = 'L';
 
-typedef struct TipoUtilidades{
 
-    void RellenaCeros(int numero, TipoRellenaCeros &resultado);
-    void GenerarIdReserva(int nivel , int punto , int numreserva,int mes, int anyo, TipoIdReserva &id_reserva);
-    bool ValidarReserva(int R_Inicio, int R_Final, int T_Inicio , int T_Final);
-    TipoFecha TransformarFechaHora(int p_dia, int p_mes, int p_anio, int p_hora , int p_minuto);
-    void minus_a_mayus_corriente(TipoCorriente &cadena);
-};
+
+ TipoFecha TransformarFechaHora(int p_dia, int p_mes, int p_anio, int p_hora , int p_minuto);
+ bool es_anio_bisiesto(int anio);
+ int FechaSecuencia(int dia , int mes , int anio);
+ int ReservaSecuencia(int dia, int mes, int anio , int hora, int minuto);
+ bool ValidarReserva(int R_Inicio, int R_Final, int T_Inicio , int T_Final);
+void minus_a_mayus_corriente(TipoCorriente &cadena);

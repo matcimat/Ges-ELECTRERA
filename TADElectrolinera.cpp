@@ -5,9 +5,9 @@
 #include "Constantes.h"
 
 const int MAX_PUNTOS_ELECTROLINERA = 20;
+bool modo_debug;
 
-
-void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int p_npuntos_r, int p_npuntos_s, int p_npuntos_l,
+void TipoElectrolinera::CrearElectroninera(int p_id,TipoNombreElectrolinera p_nombre, int p_npuntos_r, int p_npuntos_s, int p_npuntos_l,
                          TipoUbicacionElectrolinera p_tipo, float p_latitud, float p_longitud){
 
 
@@ -33,6 +33,7 @@ void TipoElectrolinera::CrearElectroninera(TipoNombreElectrolinera p_nombre, int
   }
 
   /* Si llegamos a este punto es que los datos son correctos y vamos a crear la electrolinera */
+  identificador=p_id;
   strcpy(nombre,p_nombre);
   NPtosRapidos3=p_npuntos_r;
   NPtosSemi2=p_npuntos_s;
@@ -111,7 +112,7 @@ void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorrie
         printf("\n *** ERROR:No quedan puntos disponibles de Nivel 3 ***\n ");
         /* throw 1; */
       }else{
-        printf("\n Creando punto %d , de nivel 3",p_id);
+        printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 3",identificador,p_id);
         PuntosRecarga[p_id].CrearPtoRecarga(p_id,3,p_rodaja);
         NPtosRapidos3--;
         return;
@@ -127,7 +128,7 @@ void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorrie
         printf("\n *** ERROR:No quedan puntos disponibles de Nivel 1 ***\n ");
         /* throw 1; */
       }else{
-        printf("\n Creando punto %d , de nivel 1",p_id);
+        printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 1",identificador,p_id);
         PuntosRecarga[p_id].CrearPtoRecarga(p_id,1,p_rodaja);
         NPtosLentos1--;
         return;
@@ -138,7 +139,7 @@ void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorrie
         printf("\n *** ERROR:No quedan puntos disponibles de Nivel 2 ***\n ");
         /* throw 1; */
       }else{
-        printf("\n Creando punto %d , de nivel 2",p_id);
+          printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 2",identificador,p_id);
         PuntosRecarga[p_id].CrearPtoRecarga(p_id,2,p_rodaja);
         NPtosSemi2--;
         return;
@@ -155,7 +156,9 @@ void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorrie
       PuntosRecarga[p_id].nivel=0;
       PuntosRecarga[p_id].UltimaReserva=0;
       PuntosRecarga[p_id].PtoEnUso=false;
-      /* printf("\nEl punto de recarga %d ha sido inicializado",p_id); */
+      if(modo_debug){
+        printf("\nEl punto de recarga %d ha sido inicializado",p_id);
+      }
       return;
 
   }else{
@@ -179,7 +182,7 @@ void TipoElectrolinera::ListarReservas(int identificador,int mes, int anio){
     printf("\t Nivel: %d\n",n);
     for(int p=1;p<=20;p++){
       /* Recorremos los puntos para imprimir los de cada nivel */
-      if(PuntosRecarga[p].nivel==n){
+      if(PuntosRecarga[p].nivel==n && PuntosRecarga[p].PtoEnUso==true){
        /* El punto p es del nivel que estamos listando */
        /*TODO ojo que hay que pasarle el mes y el año para que solo imprima esas */
        NumReservas=NumReservas+PuntosRecarga[p].ListarReservas(mes,anio);
@@ -195,11 +198,35 @@ void TipoElectrolinera::ListarReservas(int identificador,int mes, int anio){
 }
 
 
-void TipoElectrolinera::BuscarHuecoReserva(int nivel,TipoFecha FechaInicio,int duracion){
+void TipoElectrolinera::BuscarHuecoReserva(int p_nivel,TipoFecha FechaInicio,int p_duracion){
  /* En esta función se intentará buscar el hueco para ahcer la reserva */
- /* Para ello haremos un bucle por todos los puntos de recarga de la electrolinera, y para aquellos que sean del nivel necesario
+ /* Para ello haremos un bucle por todos los puntos de recarga de la electrolinera, y para aquellos que sean del nivel necesario */
  /* le pasaremos a ese punto que intente buscar el hueco */
 
+
+  bool reservado=false;
+  int punto=0;
+
+     while(punto<=20 && reservado==false){
+       punto++;
+      /* Recorremos los puntos para imprimir los de cada nivel */
+      if(PuntosRecarga[punto].PtoEnUso==true){
+        if(PuntosRecarga[punto].nivel==p_nivel){
+        /* El punto p es del nivel que estamos listando */
+          if(modo_debug){
+            printf("\nBuscando huecos en el punto %2d",punto);
+          }
+          reservado=PuntosRecarga[punto].AnadirReserva(FechaInicio,p_duracion);
+
+        } /* Del if del nivel */
+      } /* del if del PtoEnUso */
+    } /* del while */
+
+  if(!reservado){
+   throw 1;
+  }else{
+    return;
+  }
 
 }
 

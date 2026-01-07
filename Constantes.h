@@ -1,3 +1,3 @@
 #pragma once
 
-/* extern bool modo_debug; */
+extern bool modo_debug;

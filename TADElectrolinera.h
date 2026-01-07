@@ -23,7 +23,7 @@ typedef struct TipoElectrolinera{
   ListaPuntosRecarga PuntosRecarga;
 
 
-  void CrearElectroninera(TipoNombreElectrolinera nombre, int NPuntos_R, int NPuntos_S, int NPuntos_L,
+  void CrearElectroninera(int id,TipoNombreElectrolinera nombre, int NPuntos_R, int NPuntos_S, int NPuntos_L,
                          TipoUbicacionElectrolinera Tipo, float latitud, float longitud);
   void ImprimirElectrolinera(int identificador);
   void ListarReservas(int identificador,int mes, int anio);

@@ -3,6 +3,9 @@
 #include "TADPunto.h"
 #include "TADCalendario.h"
 #include "TADReserva.h"
+#include "TADUtilidades.h"
+#include "Constantes.h"
+
 
 
 
@@ -13,43 +16,85 @@ void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
       nivel=p_nivel;
       rodaja=p_rodaja;
       UltimaReserva=0;
-      printf("\n\tCreado el punto %2d de nivel %d y rodaja %2d.",p_id,p_nivel,p_rodaja);
+      if(modo_debug){
+        printf("\n\tCreado el punto %2d de nivel %d y rodaja %2d.",p_id,p_nivel,p_rodaja);
+      }
       /* TODO: Asegurarse de que cuando se reutilza un punto de recarga se resetean las reservas */
 
 }
 
 void TipoPunto::ImprimirPtoRecarga(int p_id_electrolinera , int p_id_punto){
   if(PtoEnUso==true){
-    printf("\tEl punto de recarga %2d tiene el nivel %2d.\n",p_id_punto,nivel);
+    printf("\tEl punto de recarga %d tiene el nivel %d y la rodaja es de %d minutos.\n",p_id_punto,nivel,rodaja);
     ListarTodasReservas();
   }else{
-    /*printf("\tEl punto de recarga %2d no est%c definido.\n",p_id_punto,160)*/;
+    /* printf("\tEl punto de recarga %2d no est%c definido.\n",p_id_punto,160) */;
   }
 
 }
 
-int TipoPunto::BuscarReserva(TipoFecha p_inicio , TipoFecha p_final){
-  /* Busca si está libre el hueco de la reserva en en punto indicado */
-  return 0;
-
-}
-void TipoPunto::AnadirReserva(TipoFecha p_inicio , int p_duracion){
+bool TipoPunto::AnadirReserva(TipoFecha p_inicio , int p_duracion){
 
 
-  UltimaReserva++;
+  int ts_inicio=0;
+  int ts_final=0;
+  int ts_final_dia=0;
+  int r;
+  bool reserva_valida;
+  TipoFecha FechaFinalDia;
+ int rodajas_necesarias=0;
+
+  if(UltimaReserva==1000){
+    printf("\n\tEste punto de recargas ha llegado a su l%cmite de reservas.",161);
+    return false;
+  }
+
+ rodajas_necesarias = p_duracion/rodaja;
+ if(p_duracion>rodajas_necesarias*rodaja){
+   rodajas_necesarias++;
+ }
+ if(modo_debug){
+  printf("\n\tLa duracion solicitada era de %2d , y la rodaja minima es de %2d, asi que necesitamos %2d rodajas",p_duracion,rodaja,rodajas_necesarias);
+ }
+
+  /* Vamos a calcular los minutos iniciales y finales de la reserva desde el 1/enero/2025 00:00 */
+  ts_inicio=ReservaSecuencia(p_inicio.dia,p_inicio.mes,p_inicio.anio,p_inicio.horas,p_inicio.minutos);
+  ts_final=ts_inicio + (rodajas_necesarias*rodaja);
+  ts_final_dia=ReservaSecuencia(p_inicio.dia,p_inicio.mes,p_inicio.anio,23,59);
+  if(ts_final>ts_final_dia){
+    /* La duración de la reserva con la rodaja de este punto excede de las 23:59 horas del dia por lo que no sepuede hacer */
+    printf("\n\tLa reserva excede la duración del d&ca indicado. Debe dividirla en 2 reservas, una para cada d&ca.",161,161);
+    return false;
+  }
+  if(modo_debug){
+    printf("\n\t Timestamp inicio %d , final %d , final_dia %d",ts_inicio,ts_final,ts_final_dia);
+  }
+
+
   /* Comprobaremos que tenemos hueco en el vector de reservas */
+  reserva_valida=true;
+  r=0;
+  while(reserva_valida==true && r<=UltimaReserva){
+    r++;
+    /* Vamos a recorrer todas las reservas del punto a ver si hay alguna reserva previa incompatible */
+    reserva_valida=Reservas[r].ValidarReserva(ts_inicio,ts_final);
+  } /* del while de reservas*/
+  if(reserva_valida==true){
+    /* Como no hemos encontrado ninguna reserva previa incompatible, la añadimos*/
+    UltimaReserva++;
+    Reservas[UltimaReserva].GrabarReserva(UltimaReserva,p_inicio,(rodaja*rodajas_necesarias),ts_inicio,ts_final);
+    printf("\n\n\tReserva Correcta");
+    printf("\n\t\tIdentificador: Punto de Recarga N%d-%d-%04d-%02d-%02d\n",nivel,identificador,UltimaReserva,p_inicio.mes,p_inicio.anio);
+    printf("\t\tFecha y hora: %02d-%d-%4d %02d:%02d\n",p_inicio.dia,p_inicio.mes,p_inicio.anio,p_inicio.horas,p_inicio.minutos);
+    printf("\t\tTiempo %d minutos (%dx%d)\n",(rodajas_necesarias*rodaja),rodajas_necesarias,rodaja);
+    return true;
+  } else {
+    if(modo_debug){
+      printf("\n\t\tEl punto %d no tiene hueco para esta reserva\n",identificador);
+    }
+    return false;
+  } /* del else */
 
-  if(UltimaReserva==100){
-    return;
-  }else{
-    /* Creamos la reserva */
-    Reservas[UltimaReserva].Inicio=p_inicio;
-    Reservas[UltimaReserva].duracion=p_duracion;
-    strcpy(Reservas[UltimaReserva].Identificador,"Sergio");
-    Reservas[UltimaReserva].ts_inicio=100;
-    Reservas[UltimaReserva].ts_final=150;
-
-  }
 
 
 }
