@@ -5,7 +5,7 @@
 
 bool TipoReserva::ValidarReserva(int R_Inicio, int R_Final){
 
-  /* En esta función vamos a ver si la reserva tiene algún minuto coincidente con el intervalo que queremos reservar
+  /* En esta función vamos a ver si la reserva tiene algún minuto coincidente con el intervalo que queremos reservar */
 
   /* R_Inicio y R_Final es el intervalo de la reserva */
 

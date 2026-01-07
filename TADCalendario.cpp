@@ -159,6 +159,9 @@ int Calendario::dia_semana(int Anio, int Mes) {
     break;
   }
 
+/* A este punto no se va a llegar nunca , pero lo pongo para que no me salga el warning */
+  return 0;
+
 } /* Dia de la semana*/
 
 /* Método: dias desde el inicio de los tiempos (1 de enero de 1601) */

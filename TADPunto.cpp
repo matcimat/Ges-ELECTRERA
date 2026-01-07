@@ -63,7 +63,7 @@ bool TipoPunto::AnadirReserva(TipoFecha p_inicio , int p_duracion){
   ts_final_dia=ReservaSecuencia(p_inicio.dia,p_inicio.mes,p_inicio.anio,23,59);
   if(ts_final>ts_final_dia){
     /* La duración de la reserva con la rodaja de este punto excede de las 23:59 horas del dia por lo que no sepuede hacer */
-    printf("\n\tLa reserva excede la duración del d&ca indicado. Debe dividirla en 2 reservas, una para cada d&ca.",161,161);
+    printf("\n\tLa reserva excede la duración del d%ca indicado. Debe dividirla en 2 reservas, una para cada d%ca.",161,161);
     return false;
   }
   if(modo_debug){

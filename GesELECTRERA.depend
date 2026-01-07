@@ -4,7 +4,7 @@
 
 1764591625 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectronilera.h
 
-1767814813 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
+1767818435 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
 	<stdio.h>
 	<ctype.h>
 	<stdlib.h>
@@ -18,7 +18,7 @@
 1767816463 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.h
 	"TADPunto.h"
 
-1767816463 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.cpp
+1767819221 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectrolinera.cpp
 	<string.h>
 	<stdio.h>
 	"TADElectrolinera.h"

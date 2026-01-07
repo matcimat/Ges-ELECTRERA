@@ -32,6 +32,11 @@ void TipoElectrolinera::CrearElectroninera(int p_id,TipoNombreElectrolinera p_no
     throw 1;
   }
 
+  if(!(strcmp(p_tipo,"Urbana")==0 || strcmp(p_tipo,"Ruta")==0 || strcmp(p_tipo,"Mixta")==0)){
+    printf("Falla la creaci%cn de Electrolinera. El tipo debe ser Urbana , Ruta o Mixta. \n", 162);
+    throw 1;
+  }
+
   /* Si llegamos a este punto es que los datos son correctos y vamos a crear la electrolinera */
   identificador=p_id;
   strcpy(nombre,p_nombre);
@@ -105,16 +110,29 @@ void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorrie
     if((p_potencia<50) || (p_potencia>300)){
      /* Potencia Incorrecta */
       printf("\n *** ERROR:Potencia incorrecta para tipo de corriente DC ***\n ");
-      /* throw 1; */
+      throw 1;
     }else{
       /* Comprobamos que no excedemos el numero de puntos de nivel 3 */
       if(NPtosRapidos3<1){
         printf("\n *** ERROR:No quedan puntos disponibles de Nivel 3 ***\n ");
-        /* throw 1; */
+        throw 1;
       }else{
         printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 3",identificador,p_id);
         PuntosRecarga[p_id].CrearPtoRecarga(p_id,3,p_rodaja);
         NPtosRapidos3--;
+        if(liberada){
+          switch(ant_nivel){
+            case 1:
+              NPtosLentos1++;
+              break;
+            case 2:
+              NPtosSemi2++;
+              break;
+            case 3:
+              NPtosRapidos3++;
+              break;
+          } /* del switch*/
+        } /* del if liberada*/
         return;
       }
     }
@@ -126,27 +144,55 @@ void TipoElectrolinera::CrearPuntoRecarga(int p_id, float p_potencia, TipoCorrie
     /* Nivel 1: Potencia entre 2 y 4 */
      if(NPtosLentos1<1){
         printf("\n *** ERROR:No quedan puntos disponibles de Nivel 1 ***\n ");
-        /* throw 1; */
+        throw 1;
       }else{
         printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 1",identificador,p_id);
         PuntosRecarga[p_id].CrearPtoRecarga(p_id,1,p_rodaja);
         NPtosLentos1--;
+        if(liberada){
+          switch(ant_nivel){
+            case 1:
+              NPtosLentos1++;
+              break;
+            case 2:
+              NPtosSemi2++;
+              break;
+            case 3:
+              NPtosRapidos3++;
+              break;
+          } /* del switch*/
+        } /* del if liberada*/
+
         return;
       }
     }else if((p_potencia>=11) && (p_potencia<=22)){
     /* Nivel 2: Potencia entre 11 y 22 */
      if(NPtosSemi2<1){
         printf("\n *** ERROR:No quedan puntos disponibles de Nivel 2 ***\n ");
-        /* throw 1; */
+        throw 1;
       }else{
-          printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 2",identificador,p_id);
+        printf("\n Configuracion correcta: Electrolinera %d. Punto de carga %d , Nivel 2",identificador,p_id);
         PuntosRecarga[p_id].CrearPtoRecarga(p_id,2,p_rodaja);
         NPtosSemi2--;
+        /* Al haber creado el punto correctamente incrementamos el contador del nivel del punto que reemplazamos */
+        if(liberada){
+          switch(ant_nivel){
+            case 1:
+              NPtosLentos1++;
+              break;
+            case 2:
+              NPtosSemi2++;
+              break;
+            case 3:
+              NPtosRapidos3++;
+              break;
+          } /* del switch*/
+        } /* del if liberada*/
         return;
       }
     }else{
       printf("\n *** ERROR:Potencia incorrecta para tipo de corriente AC ***\n ");
-      /* throw 1; */
+      throw 1;
     }
 
   }else if(strcmp(p_tipo,"IN")==0){
@@ -223,6 +269,7 @@ void TipoElectrolinera::BuscarHuecoReserva(int p_nivel,TipoFecha FechaInicio,int
     } /* del while */
 
   if(!reservado){
+    printf("\nNo hay disponibilidad para hacer la reserva. Intente en otra Electrolinera o en otro horario.\n");
    throw 1;
   }else{
     return;

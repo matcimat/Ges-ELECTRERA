@@ -25,12 +25,9 @@ int resultado;
 TipoFecha Inicio,Final;
 
 
-void IniciarValores(){
 
-  /* Pondremos a 0 todo el vector de control de las electrolineras */
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
-    electrolineras[i].ElectEnUso=false;
-  }
+/* Funcion oculta que muestra todos los valores de electrolineras, puntos y reservas en forma tabulada */
+void IniciarValores(){
 
   electrolineras[1].CrearElectroninera(1,"Electro-1",2,3,2,"Urbana",11.11,21.21);
   electrolineras[1].CrearPuntoRecarga(1,3,"AC",10);
@@ -54,7 +51,7 @@ void IniciarValores(){
 
 }
 
-
+/* Funcion oculta que muestra todos los valores de electrolineras, puntos y reservas en forma tabulada */
 void MostrarValores(){
   printf("\n ** DEBUG : Listado Electrolineras ** \n");
   for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
@@ -131,9 +128,13 @@ void editar_electrolinera(){
     /* Lo metemos en un try catch para capturar si ha fallado la creación y poder realizar las acciones oportunas */
     try {
         electrolineras[identificador].CrearElectroninera(identificador,nombre,npuntos_r,npuntos_s,npuntos_l,tipo,latitud,longitud);
-        printf("Electrolinera creada correctamente.\n");
+        if(modo_debug){
+          printf("\nElectrolinera creada correctamente.\n");
+        }
     }catch (int error){
-       printf("Ha habido un error en los datos introducidos y no hemos podido crear la electrolinera. C%cdigo Error: %2d\n",162,error);
+      if(modo_debug){
+        printf("\nHa habido un error en los datos introducidos y no hemos podido crear la electrolinera. C%cdigo Error: %2d\n",162,error);
+      }
        return;
     }
   }
@@ -201,7 +202,9 @@ void editar_pto_recarga(){
       electrolineras[Electrolinera].CrearPuntoRecarga(Identificador,Potencia,Corriente,Rodaja);
     }catch (int error)
     {
-       printf("Ha habido un error en los datos introducidos y no hemos podido crear el punto de recarga. C%cdigo Error: %2d\n",162,error);
+      if(modo_debug){
+        printf("\nHa habido un error en los datos introducidos y no hemos podido crear el punto de recarga. C%cdigo Error: %2d\n",162,error);
+      }
        return;
     }
 
@@ -318,13 +321,15 @@ void reservar_pto_recarga(){
       try{
         electrolineras[Electrolinera].BuscarHuecoReserva(nivel,FechaInicio,duracion);
       }catch (int error){
-        printf("\n ***ERROR: No hay disponibilidad para hacer la reserva. Intente en otra Electrolinera o en otro horario.\n");
+        if(modo_debug){
+          printf("\nHa habido un error en los datos introducidos y no hemos podido la reserva. C%cdigo Error: %2d\n",162,error);
+        }
         return;
       }
       return;
 
   }else if (DatosCorrectos == 'N') {
-    printf("Operaci%c cancelada. n\n\n", 162);
+    printf("\nOperaci%c cancelada. n\n\n", 162);
     return;
   }
   else {
@@ -339,7 +344,7 @@ void listar_reservas_electrolinera(){
   int mes=0;
   int anio=0;
 
-  printf("Reservas Mensuales Punto de Recarga:\n\n");
+  printf("\nListar reservas de electrolinera:\n\n");
 
   printf("\t%cIdentificador de Electrolinera?: ", 168);
   scanf("%d", &Electrolinera);
@@ -374,7 +379,7 @@ void listar_mensual_pto(){
   int anio=0;
   char continuar = 'S';
 
-  printf("Reservas Mensuales Punto de Recarga:\n\n");
+  printf("\nReservas Mensuales Punto de Recarga:\n\n");
 
   printf("\t%cIdentificador de Electrolinera?: ", 168);
   scanf("%d", &Electrolinera);
@@ -502,9 +507,12 @@ void menu_principal() {
 /* Programa principal */
 int main() {
 
-  /* precargar_datos();  */
-
   modo_debug = false;
+
+  /* Pondremos a 0 todo el vector de control de las electrolineras */
+  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
+    electrolineras[i].ElectEnUso=false;
+  }
 
   /* Ya sólo iniciamos valores cuando pulsamos la opcion secreeta I */
   /*IniciarValores(); */
@@ -514,6 +522,7 @@ int main() {
   while (seguir_ejecutando) {
 
     menu_principal();
+
   }
 
   return 0;
