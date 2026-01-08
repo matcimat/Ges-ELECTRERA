@@ -31,8 +31,6 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="Constantes.cpp" />
-		<Unit filename="Constantes.h" />
 		<Unit filename="GesELECTRERA.cpp" />
 		<Unit filename="TADCalendario.cpp" />
 		<Unit filename="TADCalendario.h" />

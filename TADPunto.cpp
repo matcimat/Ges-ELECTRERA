@@ -7,8 +7,6 @@
 #include "Constantes.h"
 
 
-
-
 void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
 
       PtoEnUso=true;
@@ -41,10 +39,9 @@ bool TipoPunto::AnadirReserva(TipoFecha p_inicio , int p_duracion){
   int ts_final_dia=0;
   int r;
   bool reserva_valida;
-  TipoFecha FechaFinalDia;
- int rodajas_necesarias=0;
+  int rodajas_necesarias=0;
 
-  if(UltimaReserva==1000){
+  if(UltimaReserva==10000){
     printf("\n\tEste punto de recargas ha llegado a su l%cmite de reservas.",161);
     return false;
   }
@@ -137,7 +134,6 @@ void TipoPunto::CalendarioPunto(int id_ele, TipoNombreElectrolinera nombre,int i
   Calendario calendario;
   int dia_maximo=0;
   int maximo=0;
-  int contador=0;
   fecha_max_ocupa.dia=0;
   fecha_max_ocupa.mes=p_mes;
   fecha_max_ocupa.anio=p_anio;

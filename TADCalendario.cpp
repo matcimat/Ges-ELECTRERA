@@ -1,9 +1,6 @@
 #include "TADCalendario.h"
 
 
-
-
-
 bool TipoFecha::es_fecha_valida(TipoFecha p_fecha) {
 
     if (p_fecha.anio < 2025 || p_fecha.mes < 1 || p_fecha.mes > 12 || p_fecha.dia < 1) {
@@ -102,7 +99,6 @@ int Calendario::dia_semana(int Anio, int Mes) {
   int ContadorMeses = 1;
   int ContadorAnios = AnioInicio;
   int Resto = 0;
-  int DiaSemana = 1;
   int DiasMes;
   bool AnioBisiesto = false;
 
@@ -213,9 +209,7 @@ TipoFecha Calendario::numero_fecha(int Dias) {
   TipoFecha FechaFinal;
   int Anio = AnioInicio;
   int Mes = 1;
-  int Dia = 0;
   int DiasAnio = 365;
-  bool Bisiesto;
   int DiasMes = 31;
 
   while (Dias > DiasAnio) {
@@ -245,7 +239,6 @@ TipoFecha Calendario::numero_fecha(int Dias) {
 /* Procedimiento: Mostrar el calendario */
 void Calendario::mostrar_calendario(int Anio, int Mes, TipoVectorDiasOcupados DiasOcupadosMes) {
   int DiasMes;
-  int Dia = 1;
   int PrimerDiaSemana; /* Día de la semana de primero de mes*/
   int EspaciosIniciales = 1;
 

@@ -1,43 +1,37 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="Constantes.cpp" open="1" top="0" tabpos="13">
-		<Cursor position="33" topLine="0" />
-	</File>
-	<File name="Constantes.h" open="1" top="0" tabpos="12">
-		<Cursor position="41" topLine="0" />
-	</File>
 	<File name="GesELECTRERA.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="15078" topLine="508" />
+		<Cursor position="192" topLine="0" />
 	</File>
-	<File name="TADCalendario.cpp" open="1" top="0" tabpos="11">
-		<Cursor position="3373" topLine="144" />
+	<File name="TADCalendario.cpp" open="1" top="1" tabpos="11">
+		<Cursor position="30" topLine="0" />
 	</File>
 	<File name="TADCalendario.h" open="1" top="0" tabpos="10">
-		<Cursor position="817" topLine="12" />
+		<Cursor position="55" topLine="0" />
 	</File>
 	<File name="TADElectrolinera.cpp" open="1" top="0" tabpos="9">
-		<Cursor position="9378" topLine="42" />
+		<Cursor position="125" topLine="0" />
 	</File>
 	<File name="TADElectrolinera.h" open="1" top="0" tabpos="8">
-		<Cursor position="518" topLine="9" />
+		<Cursor position="39" topLine="0" />
 	</File>
-	<File name="TADPunto.cpp" open="1" top="1" tabpos="7">
-		<Cursor position="4952" topLine="128" />
+	<File name="TADPunto.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="172" topLine="0" />
 	</File>
 	<File name="TADPunto.h" open="1" top="0" tabpos="6">
-		<Cursor position="458" topLine="8" />
+		<Cursor position="67" topLine="0" />
 	</File>
 	<File name="TADReserva.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="241" topLine="0" />
+		<Cursor position="53" topLine="0" />
 	</File>
 	<File name="TADReserva.h" open="1" top="0" tabpos="4">
-		<Cursor position="235" topLine="0" />
+		<Cursor position="193" topLine="0" />
 	</File>
 	<File name="TADUtilidades.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="0" topLine="82" />
+		<Cursor position="117" topLine="0" />
 	</File>
 	<File name="TADUtilidades.h" open="1" top="0" tabpos="3">
-		<Cursor position="357" topLine="5" />
+		<Cursor position="92" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

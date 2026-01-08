@@ -6,23 +6,6 @@
 
 
 
-bool ValidarReserva(int R_Inicio, int R_Final, int T_Inicio , int T_Final){
-
-  /* R_Inicio y R_Final es el intervalo de la reserva */
-  /* T_Inicio y T_Final es el intervalo del tramo de una reserva existente */
-
- for(int i=T_Inicio;i<=T_Final;i++){
-  /* Vamos recorriendo los minutos de la reserva */
-  if(i>=R_Inicio && i< R_Final){
-    /* el minuto i que está en una reserva previs, está dentro del intervalo que queremos reservar */
-    /* por lo que no se puede hacer la reserva por no haber hueco completo libre */
-    return false;
-  }
- }
-
- return true;
-}
-
 void minus_a_mayus_corriente(TipoCorriente &cadena){
 
   /* Aqui convertimos la cadena apuntada por el puntero a mayusculas */

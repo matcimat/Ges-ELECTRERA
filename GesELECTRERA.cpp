@@ -4,13 +4,10 @@
 #include <string.h>
 #include <time.h>
 #include "TADElectrolinera.h"
-#include "Constantes.h"
 #include "TADUtilidades.h"
 #include "TADCalendario.h"
 
 
-
-/* Parte Declarativa */
 const int MAX_NUMERO_ELECTROLINERAS = 11;
 
 typedef TipoElectrolinera TipoListaElectrolineras[MAX_NUMERO_ELECTROLINERAS];
@@ -29,24 +26,42 @@ TipoFecha Inicio,Final;
 /* Funcion oculta que muestra todos los valores de electrolineras, puntos y reservas en forma tabulada */
 void IniciarValores(){
 
-  electrolineras[1].CrearElectroninera(1,"Electro-1",2,3,2,"Urbana",11.11,21.21);
-  electrolineras[1].CrearPuntoRecarga(1,3,"AC",10);
-  electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFechaHora(12,4,2026,14,20),250);
-  electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFechaHora(14,5,2026,12,20),35);
-  electrolineras[1].CrearPuntoRecarga(5,15,"AC",20);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(1,1,2026,10,20),35);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(2,1,2026,12,10),5);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(15,1,2026,12,10),500);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(15,1,2026,12,20),5);
-  electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(1,2,2026,12,00),35);
-  electrolineras[1].CrearPuntoRecarga(10,100,"DC",30);
-  electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFechaHora(31,1,2026,12,00),35);
 
-  electrolineras[1].CrearPuntoRecarga(19,3,"AC",6);
-  electrolineras[2].CrearElectroninera(2,"Electro-2",20,0,0,"Mixta",22.22,32.32);
-  electrolineras[3].CrearElectroninera(3,"Electro-3",0,20,0,"Ruta",33.33,43.43);
-  electrolineras[4].CrearElectroninera(4,"Electro-4",0,0,20,"Urbana",44.44,55.55);
+  /* Pondremos a 0 todo el vector de control de las electrolineras */
+  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
+    electrolineras[i].ElectEnUso=false;
+  }
 
+  try{
+    electrolineras[1].CrearElectroninera(1,"Electro-1",2,3,2,"Urbana",11.11,21.21);
+      electrolineras[1].CrearPuntoRecarga(1,3,"AC",10);
+        electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFechaHora(12,4,2026,14,20),250);
+        electrolineras[1].PuntosRecarga[1].AnadirReserva(TransformarFechaHora(14,5,2026,12,20),35);
+      electrolineras[1].CrearPuntoRecarga(5,15,"AC",20);
+        electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(1,1,2026,10,20),35);
+        electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(2,1,2026,12,10),5);
+        electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(15,1,2026,12,10),500);
+        electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(15,1,2026,12,20),5);
+        electrolineras[1].PuntosRecarga[5].AnadirReserva(TransformarFechaHora(1,2,2026,12,00),35);
+      electrolineras[1].CrearPuntoRecarga(10,100,"DC",30);
+        electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFechaHora(12,2,2026,9,24),45);
+        electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFechaHora(14,2,2026,17,11),23);
+        electrolineras[1].PuntosRecarga[10].AnadirReserva(TransformarFechaHora(14,2,2026,21,59),60);
+      electrolineras[1].CrearPuntoRecarga(19,3,"AC",6);
+        electrolineras[1].PuntosRecarga[19].AnadirReserva(TransformarFechaHora(1,8,2027,5,00),400);
+    electrolineras[2].CrearElectroninera(2,"Electro-2",5,5,5,"Mixta",22.22,32.32);
+      electrolineras[2].CrearPuntoRecarga(1,250,"DC",60);
+      electrolineras[2].CrearPuntoRecarga(2,250,"DC",90);
+        electrolineras[2].PuntosRecarga[2].AnadirReserva(TransformarFechaHora(12,1,2026,5,00),120);
+      electrolineras[2].CrearPuntoRecarga(3,250,"DC",15);
+    electrolineras[3].CrearElectroninera(3,"Electro-3",6,2,2,"Ruta",33.33,43.43);
+      electrolineras[3].CrearPuntoRecarga(1,4,"AC",30);
+      electrolineras[3].CrearPuntoRecarga(2,20,"AC",30);
+      electrolineras[3].CrearPuntoRecarga(3,150,"DC",15);
+  } catch (int error) {
+   printf("\nSe ha producido un error cargando los valores iniciales. C%cdigo de error %d. \n",162,error);
+   return;
+  }
 
 
 }
@@ -508,11 +523,6 @@ void menu_principal() {
 int main() {
 
   modo_debug = false;
-
-  /* Pondremos a 0 todo el vector de control de las electrolineras */
-  for(int i=1;i<=MAX_NUMERO_ELECTROLINERAS-1;i++){
-    electrolineras[i].ElectEnUso=false;
-  }
 
   /* Ya sólo iniciamos valores cuando pulsamos la opcion secreeta I */
   /*IniciarValores(); */

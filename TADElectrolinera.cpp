@@ -2,9 +2,10 @@
 #include <stdio.h>
 #include "TADElectrolinera.h"
 #include "TADPunto.h"
-#include "Constantes.h"
+#include "TADUtilidades.h"
 
-const int MAX_PUNTOS_ELECTROLINERA = 20;
+
+const int MAX_PUNTOS_ELECTROLINERA = 21;
 bool modo_debug;
 
 void TipoElectrolinera::CrearElectroninera(int p_id,TipoNombreElectrolinera p_nombre, int p_npuntos_r, int p_npuntos_s, int p_npuntos_l,

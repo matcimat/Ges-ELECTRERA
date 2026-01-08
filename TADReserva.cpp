@@ -1,7 +1,5 @@
 #include "TADReserva.h"
-#include "Constantes.h"
-
-
+#include "TADUtilidades.h"
 
 bool TipoReserva::ValidarReserva(int R_Inicio, int R_Final){
 

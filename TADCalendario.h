@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 
+
 typedef int DiasMeses[12];
 const DiasMeses DIAS_EN_MES = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 const DiasMeses DIAS_EN_MES_BISIESTO = {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};

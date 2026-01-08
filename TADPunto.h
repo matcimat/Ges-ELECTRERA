@@ -3,8 +3,7 @@
 #include "TADCalendario.h"
 
 
-
-typedef TipoReserva ListaReservas[1000];
+typedef TipoReserva ListaReservas[10000];
 typedef char TipoNombreElectrolinera[21];
 
 
@@ -20,11 +19,9 @@ typedef struct TipoPunto{
 
 
   void CrearPtoRecarga(int id,int nivel, int rodaja);
-  void ImprimirPtoRecarga(int id_electrolinera , int id_punto);
   bool AnadirReserva(TipoFecha inicio , int duracion);
   int ListarReservas(int mes, int anio);
-  int ListarTodasReservas();
   void CalendarioPunto(int id_ele,TipoNombreElectrolinera nombre ,int id_pto,int mes, int anio);
-
-
+  void ImprimirPtoRecarga(int id_electrolinera , int id_punto);
+  int ListarTodasReservas();
 };
