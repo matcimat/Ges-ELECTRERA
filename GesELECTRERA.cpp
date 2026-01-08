@@ -1,3 +1,11 @@
+/**************************************
+* NOMBRE: #Sergio#
+* PRIMER APELLIDO: #Serrano#
+* SEGUNDO APELLIDO: #Humanes#
+* DNI: #50847746#
+* EMAIL: #sserrano411@alumno.uned.es#
+***************************************/
+
 #include <stdio.h>
 #include <ctype.h>
 #include <stdlib.h>

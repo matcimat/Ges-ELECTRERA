@@ -1,1 +1,0 @@
-- Revisar cuando muestro la memoria porque salen opuntos de nivel 50 que yo no he creado (basura en memoria)

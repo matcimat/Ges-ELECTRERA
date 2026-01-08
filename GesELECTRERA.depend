@@ -4,7 +4,7 @@
 
 1764591625 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadelectronilera.h
 
-1767891506 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
+1767893579 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\geselectrera.cpp
 	<stdio.h>
 	<ctype.h>
 	<stdlib.h>
@@ -26,14 +26,13 @@
 
 1767820508 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\constantes.h
 
-1767891582 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadpunto.cpp
+1767893815 source:c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadpunto.cpp
 	<stdio.h>
 	<string.h>
 	"TADPunto.h"
 	"TADCalendario.h"
 	"TADReserva.h"
 	"TADUtilidades.h"
-	"Constantes.h"
 
 1767891582 c:\users\sserran5\carpetalocal\cmasmenos\geselectrera\tadpunto.h
 	"TADReserva.h"

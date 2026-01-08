@@ -4,7 +4,7 @@
 #include "TADCalendario.h"
 #include "TADReserva.h"
 #include "TADUtilidades.h"
-#include "Constantes.h"
+
 
 
 void TipoPunto::CrearPtoRecarga(int p_id, int p_nivel, int p_rodaja){
